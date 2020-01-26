@@ -1,0 +1,110 @@
+\documentclass[paper=a4, fontsize=12pt]{scrartcl}
+\usepackage{amsmath,amsfonts,amsthm} 
+\usepackage{fancyhdr} 
+\usepackage[bookmarks]{hyperref}
+\usepackage{graphicx}
+\graphicspath{ {img/} }
+\usepackage{mathrsfs}
+\usepackage{subfig}
+\usepackage[export]{adjustbox}
+\usepackage{float}
+
+\usepackage[english]{babel}
+\usepackage{parskip}
+
+
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} 
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,    
+	urlcolor=blue,
+	citecolor=blue,
+}
+\usepackage{setspace}
+
+
+
+
+\title{	
+	\normalfont \normalsize 
+	\textsc{University of Ottawa} \\ [5pt]
+	\horrule{0.5pt} \\[0.4cm] 
+	\huge MCG 5141, Assignment I \\
+	\horrule{2pt} \\[0.5cm] 
+}
+\author{Mathieu Marchildon (7705209)} 
+\date{\normalsize \today} 
+
+
+\begin{document}
+\maketitle
+	
+\section*{Question 1}
+\subsection*{a)}
+\begin{align*}
+0 &= \vec{\nabla} \cdot (\vec{\nabla} \times \vec{v} ) \\
+0 &= \vec{\nabla} \cdot (\epsilon_{ijk} \frac{\partial v_k}{\partial x_j})\\
+0 &= \frac{\partial}{\partial x_i} \cdot (\epsilon_{ijk} \frac{\partial v_k}{\partial x_j})\\
+0 &= \epsilon_{ijk} \frac{\partial^2 v_k}{\partial x_i \partial x_j}\\
+0 &= \epsilon_{123} \frac{\partial^2 v_3}{\partial x_1 \partial x_2} + \epsilon_{213} \frac{\partial^2 v_3}{\partial x_2 \partial x_1} + 
+\epsilon_{312} \frac{\partial^2 v_2}{\partial x_3 \partial x_1}\\ 
+ &+ \epsilon_{132} \frac{\partial^2 v_2}{\partial x_1 \partial x_3} 
+  + \epsilon_{231} \frac{\partial^2 v_1}{\partial x_2 \partial x_3} 
+  + \epsilon_{321} \frac{\partial^2 v_1}{\partial x_3 \partial x_2}\\
+ 0 &= \frac{\partial^2 v_3}{\partial x_1 \partial x_2} 
+      -\frac{\partial^2 v_3}{\partial x_2 \partial x_1}
+      +\frac{\partial^2 v_2}{\partial x_3 \partial x_1}\\
+      &  -\frac{\partial^2 v_2}{\partial x_1 \partial x_3}
+      	+\frac{\partial^2 v_1}{\partial x_2 \partial x_3}
+      	- \frac{\partial^2 v_1}{\partial x_3 \partial x_2}\\
+      	0 & =0 
+\end{align*}
+
+\subsection*{b)}
+\begin{align*}
+\vec{\nabla} \times (\vec{\nabla} \times \vec{v} ) &= \vec{\nabla}(\vec{\nabla} \cdot \vec{v} - \nabla^2 \vec{v})\\
+\epsilon_{ijk} \frac{\partial}{\partial x_j}\epsilon_{klm} \frac{\partial v_m}{\partial x_l} &= \vec{\nabla}(\vec{\nabla} \cdot \vec{v} - \nabla^2 \vec{v}\\
+\epsilon_{ijk}\epsilon_{klm}  \frac{\partial}{\partial x_j}\frac{\partial v_m}{\partial x_l} &= \vec{\nabla}(\vec{\nabla} \cdot \vec{v} - \nabla^2 \vec{v}\\
+\end{align*}
+iterate over $i,j,k,l,m$\\
+the solution for $i = 1$
+\begin{align*}
+\epsilon_{123}\epsilon_{321}  \frac{\partial}{\partial x_2}\frac{\partial v_1}{\partial x_2} 
++ \epsilon_{123}\epsilon_{312}  \frac{\partial}{\partial x_2}\frac{\partial v_2}{\partial x_1} 
++ \epsilon_{132}\epsilon_{231}  \frac{\partial}{\partial x_3}\frac{\partial v_1}{\partial x_3} 
++ \epsilon_{132}\epsilon_{213}  \frac{\partial}{\partial x_3}\frac{\partial v_3}{\partial x_1} 
+&= \big[\vec{\nabla}(\vec{\nabla} \cdot \vec{v} - \nabla^2 \vec{v})\big]_i\\
+(+1)(-1)  \frac{\partial}{\partial x_2}\frac{\partial v_1}{\partial x_2} 
++ (+1)(+1)  \frac{\partial}{\partial x_2}\frac{\partial v_2}{\partial x_1} 
++ (-1)(+1) \frac{\partial}{\partial x_3}\frac{\partial v_1}{\partial x_3} 
++ (-1)(-1)  \frac{\partial}{\partial x_3}\frac{\partial v_3}{\partial x_1} 
+&= \big[\vec{\nabla}(\vec{\nabla} \cdot \vec{v} - \nabla^2 \vec{v})\big]_i\\
+- \frac{\partial}{\partial x_2}\frac{\partial v_1}{\partial x_2} 
++\frac{\partial}{\partial x_2}\frac{\partial v_2}{\partial x_1} 
+ -\frac{\partial}{\partial x_3}\frac{\partial v_1}{\partial x_3} 
++ \frac{\partial}{\partial x_3}\frac{\partial v_3}{\partial x_1} 
+&= \big[\vec{\nabla}(\vec{\nabla} \cdot \vec{v} - \nabla^2 \vec{v})\big]_i\\
+\frac{\partial}{\partial x_2}\frac{\partial v_2}{\partial x_1} 
++ \frac{\partial}{\partial x_3}\frac{\partial v_3}{\partial x_1} 
+- \frac{\partial ^2 v_1}{\partial x_2^2} 
+-\frac{\partial^2 v_1}{\partial x_3^2} 
+&= \big[\vec{\nabla}(\vec{\nabla} \cdot \vec{v} - \nabla^2 \vec{v})\big]_i\\
+\end{align*}
+The same procedure can be done for $j$ and $k$ 
+\begin{align*}
+\frac{\partial}{\partial x_1}\frac{\partial v_2}{\partial x_2} 
++ \frac{\partial}{\partial x_3}\frac{\partial v_3}{\partial x_2} 
+- \frac{\partial ^2 v_2}{\partial x_1^2} 
+-\frac{\partial^2 v_2}{\partial x_3^2} 
+&= \big[\vec{\nabla}(\vec{\nabla} \cdot \vec{v} - \nabla^2 \vec{v})\big]_j\\
+\frac{\partial}{\partial x_1}\frac{\partial v_1}{\partial x_3} 
++ \frac{\partial}{\partial x_1}\frac{\partial v_3}{\partial x_2} 
+- \frac{\partial ^2 v_3}{\partial x_2^2} 
+-\frac{\partial^2 v_3}{\partial x_1^2} 
+&= \big[\vec{\nabla}(\vec{\nabla} \cdot \vec{v} - \nabla^2 \vec{v})\big]_k\\
+\end{align*}
+	
+	
+	
+\end{document}
