@@ -104,7 +104,55 @@ The same procedure can be done for $j$ and $k$
 -\frac{\partial^2 v_3}{\partial x_1^2} 
 &= \big[\vec{\nabla}(\vec{\nabla} \cdot \vec{v} - \nabla^2 \vec{v})\big]_k\\
 \end{align*}
-	
+
+
+\section*{Question 2}
+\subsection*{a)}
+\begin{align*}
+&=\frac{\partial}{\partial v_i}(v_i)\\
+&= 
+	\frac{\partial}{\partial v_x}(v_x) 
+	+ \frac{\partial}{\partial v_y}(v_y)    
+	+ \frac{\partial}{\partial v_z}(v_z)\\
+& = 
+	1 
+	+ 1
+	+ 1\\
+& = 3	
+\end{align*}	
+\subsection*{b)}
+\begin{align*}
+&=\frac{\partial}{\partial v_i}(v_j)\\
+&= 
+\frac{\partial}{\partial v_x}(v_y) 
++ \frac{\partial}{\partial v_x}(v_z)    
++ \frac{\partial}{\partial v_y}(v_x)
++ \frac{\partial}{\partial v_y}(v_z)
++ \frac{\partial}{\partial v_z}(v_x)
++ \frac{\partial}{\partial v_z}(v_y)
+\\
+&= 0
+\end{align*}
+
+\subsection*{c)}
+\begin{align*}
+=&\frac{\partial}{\partial v_i}(v_i v_j)\\
+= &
+\frac{\partial}{\partial v_x}(v_x v_y) + \frac{\partial}{\partial v_x}(v_x v_z)\\
+&+ \frac{\partial}{\partial v_y}(v_y v_x) + \frac{\partial}{\partial v_y}(v_y v_z)  \\   
+&+ \frac{\partial}{\partial v_z}(v_z v_x) + \frac{\partial}{\partial v_z}(v_z v_y)\\
+= & v_y + v_z + v_x + v_z + v_x + v_y\\
+= & 2v_x + 2v_y + 2v_z
+\end{align*}
+
+\subsection*{d)}
+\begin{align*}
+=&
+\frac{\partial}{\partial v_i} \frac{\partial}{\partial v_i}(v_k v_k)\\
+=& \frac{\partial v^2_x}{\partial ^2 v_x}
+\end{align*}	
+
+
 	
 	
 \end{document}
