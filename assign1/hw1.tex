@@ -140,20 +140,120 @@ The same procedure can be done for $j$ and $k$
 \subsection*{c)}
 \begin{align*}
 =&\frac{\partial}{\partial v_i}(v_i v_j)\\
-= &
-\frac{\partial}{\partial v_x}(v_x v_y) + \frac{\partial}{\partial v_x}(v_x v_z)\\
-&+ \frac{\partial}{\partial v_y}(v_y v_x) + \frac{\partial}{\partial v_y}(v_y v_z)  \\   
-&+ \frac{\partial}{\partial v_z}(v_z v_x) + \frac{\partial}{\partial v_z}(v_z v_y)\\
-= & v_y + v_z + v_x + v_z + v_x + v_y\\
-= & 2v_x + 2v_y + 2v_z
+= &\frac{\partial}{\partial v_i}(v_{ij})\\
+=&
+ \frac{\partial}{\partial v_x}(v_{xx})
++\frac{\partial}{\partial v_x}(v_{xy})
++\frac{\partial}{\partial v_x}(v_{xz})\\
++& 
+ \frac{\partial}{\partial v_y}(v_{yx})
++\frac{\partial}{\partial v_y}(v_{yy})
++\frac{\partial}{\partial v_y}(v_{yz})\\
++& 
+ \frac{\partial}{\partial v_z}(v_{zx})
++\frac{\partial}{\partial v_z}(v_{zy})
++\frac{\partial}{\partial v_z}(v_{zz})\\
+=& 
+	2v_x + v_y + v_z\\
++&	v_x + 2v_y + v_z\\
++& 	v_x + v_y + 2v_z \\
+=& 4v_i
 \end{align*}
 
 \subsection*{d)}
 \begin{align*}
 =&
 \frac{\partial}{\partial v_i} \frac{\partial}{\partial v_i}(v_k v_k)\\
-=& \frac{\partial v^2_x}{\partial ^2 v_x}
+=& 
+  \frac{\partial v^2_x}{\partial ^2 v_x}  v_x^2
++ \frac{\partial v^2_x}{\partial ^2 v_x}  v_y^2
++ \frac{\partial v^2_x}{\partial ^2 v_x}  v_z^2\\
++& 
+  \frac{\partial v^2_y}{\partial ^2 v_x}  v_x^2
++ \frac{\partial v^2_y}{\partial ^2 v_x}  v_y^2
++ \frac{\partial v^2_y}{\partial ^2 v_x}  v_z^2\\
++&
+  \frac{\partial v^2_z}{\partial ^2 v_x}  v_x^2
++ \frac{\partial v^2_z}{\partial ^2 v_x}  v_y^2
++ \frac{\partial v^2_z}{\partial ^2 v_x}  v_z^2\\
+=& 
+2 + 0 + 0 \\
++& 0 + 2 + 0\\
++& 0 + 0 + 2
+\end{align*}
+
+\begin{align*}
+=& \frac{\partial}{\partial v_i}(v_j v_k^2)\\
+\end{align*}
+
+for $i = x $
+\begin{align*}
+=&
+ \frac{\partial}{\partial v_x}(v_x v_x^2)
++\frac{\partial}{\partial v_x}(v_x v_y^2)
++\frac{\partial}{\partial v_x}(v_x v_z^2)\\
++& 
+ \frac{\partial}{\partial v_x}(v_y v_x^2)
++\frac{\partial}{\partial v_x}(v_y v_y^2)
++\frac{\partial}{\partial v_x}(v_y v_z^2)\\
+=&
+ \frac{\partial}{\partial v_x}(v_z v_x^2)
++\frac{\partial}{\partial v_x}(v_z v_y^2)
++\frac{\partial}{\partial v_x}(v_z v_z^2)\\
+=&
+	3 v_x^2 + v_y^2 + v_z^2\\
++&  2 v_y v_x + 0 + 0 \\
++&  2v_zv_x + 0 + 0 
 \end{align*}	
+
+for $i = y $
+\begin{align*}
+=&
+ \frac{\partial}{\partial v_y}(v_x v_x^2)
++\frac{\partial}{\partial v_y}(v_x v_y^2)
++\frac{\partial}{\partial v_y}(v_x v_z^2)\\
++& 
+ \frac{\partial}{\partial v_y}(v_y v_x^2)
++\frac{\partial}{\partial v_y}(v_y v_y^2)
++\frac{\partial}{\partial v_y}(v_y v_z^2)\\
+=&
+ \frac{\partial}{\partial v_y}(v_z v_x^2)
++\frac{\partial}{\partial v_y}(v_z v_y^2)
++\frac{\partial}{\partial v_y}(v_z v_z^2)\\
+=&
+     0 + 2v_xv_y + 0\\
++&   v_x^2 + 3v_y^2 + v_z \\
++&   0 + 2v_zv_y + 0 
+\end{align*}	
+
+for $i = z $
+\begin{align*}
+=&
+ \frac{\partial}{\partial v_z}(v_x v_x^2)
++\frac{\partial}{\partial v_z}(v_x v_y^2)
++\frac{\partial}{\partial v_z}(v_x v_z^2)\\
++& 
+ \frac{\partial}{\partial v_z}(v_y v_x^2)
++\frac{\partial}{\partial v_z}(v_y v_y^2)
++\frac{\partial}{\partial v_z}(v_y v_z^2)\\
+=&
+ \frac{\partial}{\partial v_z}(v_z v_x^2)
++\frac{\partial}{\partial v_z}(v_z v_y^2)
++\frac{\partial}{\partial v_z}(v_z v_z^2)\\
+=&
+0 + 0 + 2v_xv_z\\
++&   0 + 0 + 2v_yv_z \\
++&   v_x^2 + v_y^2 + 3v_z^2 
+\end{align*}	
+
+\begin{align*}
+=&\begin{bmatrix}
+ 5v_{xx} & 0&2v_{xz} \\
+ 0 & 5 v_{yy} & 0 \\
+ 0 & 0 & 5v_{zz}
+\end{bmatrix}\\
+=& 5 \delta_{ii} + \dots
+\end{align*}
 
 \section*{Question 3}
 \begin{align*}
