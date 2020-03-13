@@ -11,12 +11,14 @@ Domain::Domain(double num, double _min, double _max) {
         vel_space.push_back(vel_space[i - 1] + dv);
     }
 }
+
 template <typename Dis_Eq>
 void Domain::setNumberDensity(Dis_Eq eq) {
     for (auto v : vel_space) {
         num_dis = eq(v);
     }
 }
+
 double Domain::rho() {
     double total = 0;
 
@@ -25,6 +27,7 @@ double Domain::rho() {
     }
     return total;
 }
+
 double Domain::u() {
     double total = 0;
     double r = rho();
@@ -34,6 +37,7 @@ double Domain::u() {
     }
     return total / r;
 }
+
 double Domain::p() {
     double total = 0;
     double uu = u();

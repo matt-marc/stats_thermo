@@ -15,6 +15,9 @@ class Domain {
     template <typename Dis_Eq>
     void setNumberDensity(Dis_Eq eq);
 
+    vector<double> f_left();
+    vector<double> f_right();
+
     double rho();
     double u();
     double p();

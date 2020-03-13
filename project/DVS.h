@@ -14,6 +14,8 @@ class DiscreteVelocityScheme {
 
     void setVelocitySpace(double number, double min, double max);
 
+    void writeF(double x);
+
     friend std::ostream &operator<<(std::ostream &out, const DiscreteVelocityScheme &dsv);
 
    private:

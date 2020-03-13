@@ -1,3 +1,9 @@
+
+#include <fstream>
+#include <iostream>
+
+
+
 #include "DVS.h"
 #include "Domain.h"
 
@@ -77,9 +83,33 @@ ostream& operator<<(std::ostream& out, const DiscreteVelocityScheme(&dsv)) {
         out << x << endl;
     }
     out << endl;
-    out << "Velocity space set for each cell" <<endl;
-    out << "v [" << dsv.dis[0].min << " " << dsv.dis[0].max<< "]" << endl;
+    out << "Velocity space set for each cell" << endl;
+    out << "v [" << dsv.dis[0].min << " " << dsv.dis[0].max << "]" << endl;
     out << "dx " << dsv.dis[0].dv << endl;
 
     return out;
+}
+
+void DiscreteVelocityScheme::writeF(double x) {
+    int index = 0;
+    for (int i = 0; i < x_pos.size(); ++i) {
+        if (x_pos[i] >= x) {
+            index = i;
+            break;
+        }
+    }
+
+    ofstream outfile;
+    outfile.open("F_dist.dat");
+    outfile << "F distribution at position "<<x_pos[index] << endl;
+    outfile.close();
+
+    outfile.open("F_dist.dat", ios_base::app);
+
+    Domain d = dis[index];
+    
+    for (int i = 0; i< d.vel_space.size(); ++i){
+        outfile<<d.vel_space[i]<<" "<< d.num_dis[i]<<endl;
+    }
+
 }
