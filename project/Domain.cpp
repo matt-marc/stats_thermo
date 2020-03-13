@@ -22,7 +22,7 @@ void Domain::setNumberDensity(Dis_Eq eq) {
 double Domain::rho() {
     double total = 0;
 
-    for (int i = 0; i < num_dis.size(); ++i) {
+    for (size_t i = 0; i < num_dis.size(); ++i) {
         total += num_dis[i];
     }
     return total;
@@ -32,7 +32,7 @@ double Domain::u() {
     double total = 0;
     double r = rho();
 
-    for (int i = 0; i < num_dis.size(); ++i) {
+    for (size_t i = 0; i < num_dis.size(); ++i) {
         total += vel_space[i] * num_dis[i];
     }
     return total / r;
@@ -43,7 +43,7 @@ double Domain::p() {
     double uu = u();
     double c;
 
-    for (int i = 0; i < num_dis.size(); ++i) {
+    for (size_t i = 0; i < num_dis.size(); ++i) {
         c = vel_space[i] - uu;
         total += c * c * num_dis[i];
     }
@@ -55,7 +55,7 @@ double Domain::q() {
     double uu = u();
     double c;
 
-    for (int i = 0; i < num_dis.size(); ++i) {
+    for (size_t i = 0; i < num_dis.size(); ++i) {
         c = vel_space[i] - uu;
         total += c * c * c * num_dis[i];
     }

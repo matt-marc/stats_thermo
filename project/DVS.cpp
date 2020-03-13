@@ -26,14 +26,14 @@ DiscreteVelocityScheme::DiscreteVelocityScheme(double _cells, double lb, double 
 }
 
 void DiscreteVelocityScheme::setVelocitySpace(double num, double min, double max) {
-    for (int i = 0; i < x_pos.size(); ++i) {
+    for (size_t i = 0; i < x_pos.size(); ++i) {
         dis.push_back(Domain(num, min, max));
     }
 }
 
 template <typename Dis_Eq>
 void DiscreteVelocityScheme::setDensityInRange(double min, double max, Dis_Eq eq) {
-    for (int i = 0; i < x_pos.size(); ++i) {
+    for (size_t i = 0; i < x_pos.size(); ++i) {
         if (x_pos[i] >= min && x_pos[i] <= max) {
             dis[i].setNumberDensity(eq);
         }
@@ -42,7 +42,7 @@ void DiscreteVelocityScheme::setDensityInRange(double min, double max, Dis_Eq eq
 
 vector<double> DiscreteVelocityScheme::rho() {
     vector<double> rho;
-    for (int i = 0; i < dis.size(); ++i) {
+    for (size_t i = 0; i < dis.size(); ++i) {
         rho.push_back(dis[i].rho());
     }
 
@@ -51,7 +51,7 @@ vector<double> DiscreteVelocityScheme::rho() {
 
 vector<double> DiscreteVelocityScheme::p() {
     vector<double> p;
-    for (int i = 0; i < dis.size(); ++i) {
+    for (size_t i = 0; i < dis.size(); ++i) {
         p.push_back(dis[i].p());
     }
 
@@ -60,7 +60,7 @@ vector<double> DiscreteVelocityScheme::p() {
 
 vector<double> DiscreteVelocityScheme::u() {
     vector<double> u;
-    for (int i = 0; i < dis.size(); ++i) {
+    for (size_t i = 0; i < dis.size(); ++i) {
         u.push_back(dis[i].u());
     }
 
@@ -69,7 +69,7 @@ vector<double> DiscreteVelocityScheme::u() {
 
 vector<double> DiscreteVelocityScheme::q() {
     vector<double> q;
-    for (int i = 0; i < dis.size(); ++i) {
+    for (size_t i = 0; i < dis.size(); ++i) {
         q.push_back(dis[i].q());
     }
     return q;
@@ -92,7 +92,7 @@ ostream& operator<<(std::ostream& out, const DiscreteVelocityScheme(&dsv)) {
 
 void DiscreteVelocityScheme::writeF(double x) {
     int index = 0;
-    for (int i = 0; i < x_pos.size(); ++i) {
+    for (size_t i = 0; i < x_pos.size(); ++i) {
         if (x_pos[i] >= x) {
             index = i;
             break;
@@ -108,7 +108,7 @@ void DiscreteVelocityScheme::writeF(double x) {
 
     Domain d = dis[index];
     
-    for (int i = 0; i< d.vel_space.size(); ++i){
+    for (size_t i = 0; i< d.vel_space.size(); ++i){
         outfile<<d.vel_space[i]<<" "<< d.num_dis[i]<<endl;
     }
 
