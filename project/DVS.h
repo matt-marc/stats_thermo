@@ -20,6 +20,8 @@ class DiscreteVelocityScheme {
 
     void writeF(double x, string filename);
 
+    void time_march_to(double df, double dt, double tau);
+
     friend std::ostream &operator<<(std::ostream &out, const DiscreteVelocityScheme &dsv);
 
    private:
@@ -28,7 +30,7 @@ class DiscreteVelocityScheme {
     double upper_bound;
     double dx;
     vector<double> x_pos;
-    vector<Domain> dis;
+    vector<Domain> U;
 
     vector<double> rho();
     vector<double> p();

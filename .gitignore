@@ -4,3 +4,5 @@
 *.gz
 */main
 *.o
+*.fdb_latexmk
+*.fls
