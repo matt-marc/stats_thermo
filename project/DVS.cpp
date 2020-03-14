@@ -2,8 +2,6 @@
 #include <fstream>
 #include <iostream>
 
-
-
 #include "DVS.h"
 #include "Domain.h"
 
@@ -31,8 +29,7 @@ void DiscreteVelocityScheme::setVelocitySpace(double num, double min, double max
     }
 }
 
-template <typename Dis_Eq>
-void DiscreteVelocityScheme::setDensityInRange(double min, double max, Dis_Eq eq) {
+void DiscreteVelocityScheme::setDensityInRange(double min, double max, density_function eq) {
     for (size_t i = 0; i < x_pos.size(); ++i) {
         if (x_pos[i] >= min && x_pos[i] <= max) {
             dis[i].setNumberDensity(eq);
@@ -90,7 +87,7 @@ ostream& operator<<(std::ostream& out, const DiscreteVelocityScheme(&dsv)) {
     return out;
 }
 
-void DiscreteVelocityScheme::writeF(double x) {
+void DiscreteVelocityScheme::writeF(double x, string filename) {
     int index = 0;
     for (size_t i = 0; i < x_pos.size(); ++i) {
         if (x_pos[i] >= x) {
@@ -100,16 +97,16 @@ void DiscreteVelocityScheme::writeF(double x) {
     }
 
     ofstream outfile;
-    outfile.open("F_dist.dat");
-    outfile << "F distribution at position "<<x_pos[index] << endl;
+    outfile.open(filename+".dat");
+    outfile << "# F distribution at position " << x_pos[index] << endl;
+    outfile << "vel num_dis " << x_pos[index] << endl;
     outfile.close();
 
-    outfile.open("F_dist.dat", ios_base::app);
+    outfile.open(filename+".dat", ios_base::app);
 
     Domain d = dis[index];
-    
-    for (size_t i = 0; i< d.vel_space.size(); ++i){
-        outfile<<d.vel_space[i]<<" "<< d.num_dis[i]<<endl;
-    }
 
+    for (size_t i = 0; i < d.vel_space.size(); ++i) {
+        outfile << d.vel_space[i] << " " << d.num_dis[i] << endl;
+    }
 }

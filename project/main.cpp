@@ -1,31 +1,26 @@
+#include <math.h>
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <math.h>
 
 #include "DVS.h"
 
 using namespace std;
 
-struct density_function {
-    double rho;
-    double u;
-    double p;
-    density_function(double _rho, double _u, double _p) {
-        rho = _rho;
-        u = _u;
-        p = _p;
-    }
-    double operator()(double v) {
-        double expon = exp(-0.5 * rho / p*(v-u)*(v-u));
-        double front = pow((rho/(2*M_PI*p)),0.5);
-        return front*expon;
-    }
-};
-
 int main(void) {
-    DiscreteVelocityScheme dsv(5, 0, 1);
-    dsv.setVelocitySpace(5,-4,1);
+    DiscreteVelocityScheme dsv(5, 0, 10);
+
+    dsv.setVelocitySpace(1000, -30, 30);
+
+    density_function left(4.696, 0.0, 404.0);
+
+    density_function right(1.408, 0.0, 101.1);
+
+    dsv.setDensityInRange(0, 5, left);
+    dsv.setDensityInRange(5, 10, right);
+
+    dsv.writeF(0.0, "left");
+    dsv.writeF(8.4, "right");
 
     //dsv.set
 

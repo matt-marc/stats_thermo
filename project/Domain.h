@@ -3,8 +3,26 @@
 
 #include <iostream>
 #include <vector>
+#include <math.h>
 
 using namespace std;
+
+
+struct density_function {
+    double rho;
+    double u;
+    double p;
+    density_function(double _rho, double _u, double _p) {
+        rho = _rho;
+        u = _u;
+        p = _p;
+    }
+    double operator()(double v) {
+        double expon = exp(-0.5 * rho / p * (v - u) * (v - u));
+        double front = pow((rho / (2 * M_PI * p)), 0.5);
+        return front * expon;
+    }
+};
 
 class Domain {
    public:
@@ -12,8 +30,7 @@ class Domain {
     vector<double> vel_space;
     Domain(double num, double min, double max);
 
-    template <typename Dis_Eq>
-    void setNumberDensity(Dis_Eq eq);
+    void setNumberDensity(density_function eq);
 
     vector<double> f_left();
     vector<double> f_right();
@@ -27,8 +44,6 @@ class Domain {
     double max;
     double dv;
 
-   
-    
 
 };
 

@@ -3,18 +3,22 @@
 
 #include <iostream>
 #include <vector>
+#include <math.h>
+
 #include "Domain.h"
+
+
 
 class DiscreteVelocityScheme {
    public:
     DiscreteVelocityScheme(double cells, double lower_bound, double upper_bound);
 
-    template <typename Dis_Eq>
-    void setDensityInRange(double min, double max, Dis_Eq eq);
+    void setDensityInRange(double min, double max, density_function eq);
 
+    void setDensityInRange(double min, double max);
     void setVelocitySpace(double number, double min, double max);
 
-    void writeF(double x);
+    void writeF(double x, string filename);
 
     friend std::ostream &operator<<(std::ostream &out, const DiscreteVelocityScheme &dsv);
 

@@ -10,12 +10,15 @@ Domain::Domain(double num, double _min, double _max) {
     for (int i = 1; i < num; ++i) {
         vel_space.push_back(vel_space[i - 1] + dv);
     }
+
+    for (int i = 0; i < num; ++i) {
+        num_dis.push_back(0.0);
+    }
 }
 
-template <typename Dis_Eq>
-void Domain::setNumberDensity(Dis_Eq eq) {
-    for (auto v : vel_space) {
-        num_dis = eq(v);
+void Domain::setNumberDensity(density_function eq) {
+    for (size_t i = 0; i < vel_space.size(); ++i) {
+        num_dis[i] = eq(vel_space[i]);
     }
 }
 
