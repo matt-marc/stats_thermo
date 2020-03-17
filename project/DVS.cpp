@@ -72,6 +72,10 @@ vector<double> DiscreteVelocityScheme::q() {
     return q;
 }
 
+void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau){
+
+}
+
 
 
 

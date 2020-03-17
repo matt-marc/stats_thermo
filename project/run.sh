@@ -3,3 +3,5 @@
 make
 
 ./main
+
+./init_con.gp

@@ -10,11 +10,11 @@ using namespace std;
 int main(void) {
     DiscreteVelocityScheme dsv(5, 0, 10);
 
-    dsv.setVelocitySpace(1000, -30, 30);
+    dsv.setVelocitySpace(10000, -1000, 1000);
 
-    density_function left(4.696, 0.0, 404.0);
+    density_function left(4.696, 0.0, 404.0 * 1000.0);
 
-    density_function right(1.408, 0.0, 101.1);
+    density_function right(1.408, 0.0, 101.1 * 1000.0);
 
     dsv.setDensityInRange(0, 5, left);
     dsv.setDensityInRange(5, 10, right);
