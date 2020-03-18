@@ -16,6 +16,13 @@ Domain::Domain(double num, double _min, double _max) {
     }
 }
 
+Domain::Domain(vector<double> dis, vector<double> vels){
+    for (size_t i = 0; i < dis.size(); ++i){
+        num_dis.push_back(dis[i]);
+        vel_space.push_back(vels[i]);
+    }
+}
+
 void Domain::setNumberDensity(density_function eq) {
     for (size_t i = 0; i < vel_space.size(); ++i) {
         num_dis[i] = eq(vel_space[i]);
@@ -67,10 +74,9 @@ double Domain::q() {
 
 Domain Domain::operator+(const Domain& d){
     Domain new_d;
-
     for (size_t i = 0 ; i< d.vel_space.size(); ++i){
-        new_d.vel_space[i] = d.vel_space[i];
-        new_d.num_dis[i] = num_dis[i] = d.num_dis[i];
+        new_d.vel_space.push_back(d.vel_space[i]+ vel_space[i]);
+        new_d.num_dis.push_back(num_dis[i] + d.num_dis[i]);
     }
 
 

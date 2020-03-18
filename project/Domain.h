@@ -28,6 +28,7 @@ class Domain {
    public:
     Domain()=default;
     Domain(double num, double min, double max);
+    Domain(vector<double> dis, vector<double> vels);
     vector<double> num_dis;
     vector<double> vel_space;
     

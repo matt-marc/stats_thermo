@@ -18,13 +18,16 @@ class DiscreteVelocityScheme {
     void setDensityInRange(double min, double max);
     void setVelocitySpace(double number, double min, double max);
 
-    void writeF(double x, string filename);
+    
 
     void time_march_to(double df, double dt, double tau);
 
     friend std::ostream &operator<<(std::ostream &out, const DiscreteVelocityScheme &dsv);
 
-    void printDomain(Domain d);
+    void writeF(double x, string filename);
+    void printDomain(Domain d, string filename);
+    void printDomain(double x, vector <Domain> domains, string filename);
+    void printDomain(vector<Domain> d, string filename);
 
     void testFuntions();
 

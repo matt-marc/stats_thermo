@@ -8,9 +8,9 @@
 using namespace std;
 
 int main(void) {
-    DiscreteVelocityScheme dsv(5, 0, 10);
+    DiscreteVelocityScheme dsv(500, 0, 10);
 
-    dsv.setVelocitySpace(10000, -1000, 1000);
+    dsv.setVelocitySpace(100, -1000, 1000);
 
     density_function left(4.696, 0.0, 404.0 * 1000.0);
 
@@ -24,9 +24,11 @@ int main(void) {
 
     //dsv.set
 
-    dsv.testFuntions();
+    //dsv.testFuntions();
 
-    cout << dsv;
+    dsv.time_march_to(0.06,1E-4,1.0);
+
+    //cout << dsv;
 
     return 0;
 }
