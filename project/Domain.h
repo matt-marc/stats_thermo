@@ -26,24 +26,25 @@ struct density_function {
 
 class Domain {
    public:
+    Domain()=default;
+    Domain(double num, double min, double max);
     vector<double> num_dis;
     vector<double> vel_space;
-    Domain(double num, double min, double max);
+    
 
     void setNumberDensity(density_function eq);
-
-    vector<double> f_left();
-    vector<double> f_right();
 
     double rho();
     double u();
     double p();
     double q();
 
+    Domain operator+(const Domain& d);
+
+
     double min;
     double max;
     double dv;
-
 
 };
 

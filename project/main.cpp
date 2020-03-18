@@ -24,6 +24,8 @@ int main(void) {
 
     //dsv.set
 
+    dsv.testFuntions();
+
     cout << dsv;
 
     return 0;

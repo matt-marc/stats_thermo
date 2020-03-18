@@ -64,3 +64,16 @@ double Domain::q() {
     }
     return 0.5 * total;
 }
+
+Domain Domain::operator+(const Domain& d){
+    Domain new_d;
+
+    for (size_t i = 0 ; i< d.vel_space.size(); ++i){
+        new_d.vel_space[i] = d.vel_space[i];
+        new_d.num_dis[i] = num_dis[i] = d.num_dis[i];
+    }
+
+
+    return new_d;
+
+}

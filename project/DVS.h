@@ -24,6 +24,10 @@ class DiscreteVelocityScheme {
 
     friend std::ostream &operator<<(std::ostream &out, const DiscreteVelocityScheme &dsv);
 
+    void printDomain(Domain d);
+
+    void testFuntions();
+
    private:
     double cells;
     double lower_bound;
@@ -36,6 +40,11 @@ class DiscreteVelocityScheme {
     vector<double> p();
     vector<double> q();
     vector<double> u();
+
+    vector<double> F_minus_half(int index);
+    vector<double> F_plus_half(int index);
+    vector<double> F_flux(int index, double dx, double dt);
+
 };
 
 #endif
