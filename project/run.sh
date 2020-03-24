@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-make && ./main
+make && ./main && ./plot.gp

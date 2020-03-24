@@ -25,7 +25,7 @@ Domain::Domain(vector<double> dis, vector<double> vels) {
 
 void Domain::setNumberDensity(density_function eq) {
     for (size_t i = 0; i < vel_space.size(); ++i) {
-        num_dis[i] = eq(vel_space[i])* dv;
+        num_dis[i] = eq(vel_space[i]) * dv;
     }
 }
 
@@ -40,12 +40,11 @@ double Domain::rho() {
 
 double Domain::u() {
     double total = 0;
-    double r = rho();
 
     for (size_t i = 0; i < num_dis.size(); ++i) {
         total += vel_space[i] * num_dis[i];
     }
-    return total / r;
+    return total;
 }
 
 double Domain::p() {
@@ -55,9 +54,9 @@ double Domain::p() {
 
     for (size_t i = 0; i < num_dis.size(); ++i) {
         c = vel_space[i] - uu;
-        total += c * c * num_dis[i];
+        total += (c * c * num_dis[i]);
     }
-    return 0.5 * total;
+    return total;
 }
 
 double Domain::q() {
