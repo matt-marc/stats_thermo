@@ -6,14 +6,16 @@ Domain::Domain(double num, double _min, double _max) {
     max = _max;
     dv = (max - min) / (num - 1);
     vel_space.push_back(min);
+    num_dis.push_back(0.0);
 
+    //sets the velocity space to range betwen min and max 
+    // inital sets the number distribution to be zero
     for (int i = 1; i < num; ++i) {
         vel_space.push_back(vel_space[i - 1] + dv);
-    }
-
-    for (int i = 0; i < num; ++i) {
         num_dis.push_back(0.0);
     }
+
+        
 }
 
 Domain::Domain(vector<double> dis, vector<double> vels){
@@ -25,7 +27,7 @@ Domain::Domain(vector<double> dis, vector<double> vels){
 
 void Domain::setNumberDensity(density_function eq) {
     for (size_t i = 0; i < vel_space.size(); ++i) {
-        num_dis[i] = eq(vel_space[i]);
+        num_dis[i] = eq(vel_space[i]) * dv;
     }
 }
 

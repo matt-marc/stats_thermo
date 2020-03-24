@@ -89,7 +89,7 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
         for (size_t i = 0; i < U.size(); ++i) {
             f_flux = F_flux(i, dx, dt);
             Domain d(f_flux, U[0].vel_space);
-            u_hat.push_back(U[i]+d); 
+            u_hat.push_back(U[i] + d);
         }
 
         c_t += dt;
@@ -214,13 +214,15 @@ ostream& operator<<(std::ostream& out, const DiscreteVelocityScheme(&dsv)) {
     out << "Current Domain for problem" << endl;
     out << "x [" << dsv.lower_bound << " " << dsv.upper_bound << "]" << endl;
     out << "dx " << dsv.dx << endl;
-    for (auto x : dsv.x_pos) {
-        out << x << endl;
+
+    for (size_t i = 0; i < dsv.x_pos.size(); ++i) {
+        out << "x[" << i << "] = " << dsv.x_pos[i] << endl;
     }
+
     out << endl;
     out << "Velocity space set for each cell" << endl;
     out << "v [" << dsv.U[0].min << " " << dsv.U[0].max << "]" << endl;
-    out << "dx " << dsv.U[0].dv << endl;
+    out << "dv " << dsv.U[0].dv << endl;
 
     return out;
 }
@@ -237,7 +239,7 @@ void DiscreteVelocityScheme::writeF(double x, string filename) {
     ofstream outfile;
     outfile.open(filename + ".dat");
     outfile << "# F distribution at position " << x_pos[index] << endl;
-    outfile << "vel num_dis" << x_pos[index] << endl;
+    outfile << "vel num_dis" << endl;
     outfile.close();
 
     outfile.open(filename + ".dat", ios_base::app);

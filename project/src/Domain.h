@@ -1,12 +1,11 @@
 #ifndef DISTRIBUTION_H
 #define DISTRIBUTION_H
 
+#include <math.h>
 #include <iostream>
 #include <vector>
-#include <math.h>
 
 using namespace std;
-
 
 struct density_function {
     double rho;
@@ -18,7 +17,7 @@ struct density_function {
         p = _p;
     }
     double operator()(double v) {
-        double expon = exp(-0.5 * rho / p * (v - u) * (v - u));
+        double expon = exp(-0.5 * (rho / p) * (v - u) * (v - u));
         double front = pow((rho / (2 * M_PI * p)), 0.5);
         return front * expon;
     }
@@ -26,12 +25,11 @@ struct density_function {
 
 class Domain {
    public:
-    Domain()=default;
+    Domain() = default;
     Domain(double num, double min, double max);
     Domain(vector<double> dis, vector<double> vels);
     vector<double> num_dis;
     vector<double> vel_space;
-    
 
     void setNumberDensity(density_function eq);
 
@@ -42,11 +40,9 @@ class Domain {
 
     Domain operator+(const Domain& d);
 
-
     double min;
     double max;
     double dv;
-
 };
 
 #endif
