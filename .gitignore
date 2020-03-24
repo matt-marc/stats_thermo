@@ -6,3 +6,4 @@
 *.o
 *.fdb_latexmk
 *.fls
+project/src/main
