@@ -29,13 +29,13 @@ int main(void) {
     dsv.setDensityInRange(0, 5, left);
     dsv.setDensityInRange(5, 10, right);
 
-    //dsv.writeF(0.5, "left");
-    //dsv.writeF(8.4, "right");
+    dsv.writeF(0.5, "left");
+    dsv.writeF(8.4, "right");
 
     dsv.printDomain(dsv.U,"test");
 
 
-    //dsv.time_march_to(0.06,1E-4,1.0);
+    dsv.time_march_to(6E-4,1E-4,1.0);
 
     //cout << dsv;
 

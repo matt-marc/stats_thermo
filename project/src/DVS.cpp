@@ -80,8 +80,8 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
     double c_t = 0.0;
     while (c_t < tf) {
         vector<Domain> u_hat;
+        vector<Domain> tau_m;
         vector<double> f_flux;
-        vector<Domain> f_flux_domain;
         if (c_t + dt > tf) {
             dt = tf - c_t;
         }
@@ -94,6 +94,7 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
 
         c_t += dt;
         uf = u_hat;
+        U = uf;
     }
     //printDomain(5.0, uf, "test");
     printDomain(uf, "ms6");
