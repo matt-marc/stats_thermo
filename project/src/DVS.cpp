@@ -206,7 +206,7 @@ void DiscreteVelocityScheme::printDomain(vector<Domain> d, string filename) {
     outfile.open(filename, ios_base::app);
 
     for (size_t i = 0; i < x_pos.size(); ++i) {
-        outfile << x_pos[i] << " " << d[i].rho() << " " << d[i].u() << endl;
+        outfile << x_pos[i] << " " << d[i].rho() << " " << d[i].u() << " " << d[i].p() << endl;
     }
 }
 

@@ -3,6 +3,6 @@ all:
 	cp src/main ./
 
 clean:
-	rm -rf .dat
+	rm -rf *.dat
 	rm -f main
 	$(MAKE) clean -C src

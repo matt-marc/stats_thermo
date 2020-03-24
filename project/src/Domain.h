@@ -19,7 +19,7 @@ struct density_function {
     double operator()(double v) {
         double expon = exp(-0.5 * (rho / p) * (v - u) * (v - u));
         double front = pow((rho / (2 * M_PI * p)), 0.5);
-        return front * expon;
+        return rho * front * expon;
     }
 };
 
