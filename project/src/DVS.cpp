@@ -106,8 +106,6 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
         c_t += dt;
     }
     printDomain(U,"ms6");
-
-    vector<Domain> uf;
 }
 
 vector<double> DiscreteVelocityScheme::F_minus_half(int index) {
@@ -118,7 +116,7 @@ vector<double> DiscreteVelocityScheme::F_minus_half(int index) {
     vector<double> v_i = U[index].vel_space;
 
     //edge case, if we are at the left most cell
-    // then F_(i-1) woudl be zero
+    // then F_(i-1) woudl be F_(i)
     if (index == 0) {
         f_i_m1 = U[0].num_dis;
     } else {
