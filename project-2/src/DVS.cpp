@@ -22,43 +22,112 @@ DiscreteVelocityScheme::DiscreteVelocityScheme(double cells, double lb, double u
 }
 
 void DiscreteVelocityScheme::setVelocitySpace(double num, double min, double max) {
-    dv = (max - min) / (num-1);
+    dv = (max - min) / (num - 1);
 
     vel_space.push_back(min);
 
     for (int i = 1; i < num; ++i) {
-        vel_space.push_back(vel_space[i-1] + dv);
+        vel_space.push_back(vel_space[i - 1] + dv);
     }
+}
+
+void DiscreteVelocityScheme::init_U() {
+    U = vector<vector<double>>(x_pos.size(), vector<double>(vel_space.size(), 0.0));
 }
 
 void DiscreteVelocityScheme::setDensityInRange(double min, double max, density_function eq) {
     for (size_t i = 0; i < x_pos.size(); ++i) {
         if (x_pos[i] >= min && x_pos[i] <= max) {
+            for (size_t j = 0; j < vel_space.size(); ++j) {
+                U[i][j] = eq(vel_space[j]) * dv;
+            }
         }
     }
 }
 
 vector<double> DiscreteVelocityScheme::rho() {
     vector<double> rho;
+    double total;
 
+    for (size_t i = 0; i < x_pos.size(); ++i) {
+        total = 0.0;
+        for (size_t j = 0; j < vel_space.size(); ++j) {
+            total += U[i][j];
+        }
+        rho.push_back(total);
+    }
     return rho;
 }
 
-vector<double> DiscreteVelocityScheme::p() {
-    vector<double> p;
+double DiscreteVelocityScheme::rho(int index) {
+    double total = 0.0;
 
-    return p;
+    for (size_t j = 0; j < vel_space.size(); ++j) {
+        total += U[index][j];
+    }
+    return total;
 }
 
 vector<double> DiscreteVelocityScheme::u() {
     vector<double> u;
 
+    double total;
+
+    for (size_t i = 0; i < x_pos.size(); ++i) {
+        total = 0.0;
+        for (size_t j = 0; j < vel_space.size(); ++j) {
+            total += U[i][j] * vel_space[j];
+        }
+        u.push_back(total / rho(i));
+    }
+
     return u;
+}
+
+double DiscreteVelocityScheme::u(int index) {
+    double total = 0.0;
+
+    for (size_t j = 0; j < vel_space.size(); ++j) {
+        total += U[index][j] * vel_space[j];
+    }
+    return total / rho(index);
+}
+
+vector<double> DiscreteVelocityScheme::p() {
+    vector<double> p;
+
+    double total;
+    double c;
+    double uu;
+
+    for (size_t i = 0; i < x_pos.size(); ++i) {
+        total = 0.0;
+        uu = u(i);
+        for (size_t j = 0; j < vel_space.size(); ++j) {
+            c = vel_space[j] - uu;
+            total += U[i][j] * c * c;
+        }
+        p.push_back(total);
+    }
+    return p;
 }
 
 vector<double> DiscreteVelocityScheme::q() {
     vector<double> q;
 
+    double total;
+    double c;
+    double uu;
+
+    for (size_t i = 0; i < x_pos.size(); ++i) {
+        total = 0.0;
+        uu = u(i);
+        for (size_t j = 0; j < vel_space.size(); ++j) {
+            c = vel_space[j] - uu;
+            total += U[i][j] * c * c * c;
+        }
+        q.push_back(total / 2.0);
+    }
     return q;
 }
 
@@ -87,7 +156,24 @@ vector<double> DiscreteVelocityScheme::F_flux(int index, double _dx, double dt) 
 }
 
 void DiscreteVelocityScheme::testFuntions() {
-    auto a = F_minus_half(0);
+    string filename = "test";
+    ofstream outfile;
+    outfile.open(filename + ".dat");
+    outfile << "# F distribution at position" << endl;
+    outfile.close();
+
+    outfile.open(filename + ".dat", ios_base::app);
+
+    auto r = rho();
+
+    auto test = U[0];
+    for (auto t : test) {
+        // cout << t << endl;
+    }
+
+    for (size_t i = 0; i < x_pos.size(); ++i) {
+        outfile << x_pos[i] << " " << r[i] << endl;
+    }
 }
 
 ostream& operator<<(std::ostream& out, const DiscreteVelocityScheme(&dvs)) {
@@ -104,7 +190,7 @@ ostream& operator<<(std::ostream& out, const DiscreteVelocityScheme(&dvs)) {
 
     out << endl;
     out << "Velocity space set for each cell" << endl;
-    out << "v [" << dvs.vel_space[0] << " " << dvs.vel_space[dvs.vel_space.size() - 1]<< "]" << endl;
+    out << "v [" << dvs.vel_space[0] << " " << dvs.vel_space[dvs.vel_space.size() - 1] << "]" << endl;
     out << "dv " << dvs.dv << endl;
     out << dvs.vel_space[0] << endl;
     out << dvs.vel_space[1] << endl;
@@ -115,20 +201,20 @@ ostream& operator<<(std::ostream& out, const DiscreteVelocityScheme(&dvs)) {
     return out;
 }
 
-void DiscreteVelocityScheme::writeF(double x, string filename) {
-    int index = 0;
-    for (size_t i = 0; i < x_pos.size(); ++i) {
-        if (x_pos[i] >= x) {
-            index = i;
-            break;
-        }
-    }
-
+void DiscreteVelocityScheme::write_U(string filename) {
     ofstream outfile;
     outfile.open(filename + ".dat");
-    outfile << "# F distribution at position " << x_pos[index] << endl;
-    outfile << "vel num_dis" << endl;
+    outfile << "# x rho u p q" << endl;
     outfile.close();
 
     outfile.open(filename + ".dat", ios_base::app);
+
+    auto r = rho();
+    auto uu = u();
+    auto pp = p();
+    auto qq = q();
+
+    for (size_t i = 0; i < x_pos.size(); ++i) {
+        outfile << x_pos[i] << " " << r[i] << " " << uu[i] << " " << pp[i] << " " << qq[i] << endl;
+    }
 }

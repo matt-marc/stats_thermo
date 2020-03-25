@@ -27,17 +27,19 @@ struct density_function {
 class DiscreteVelocityScheme {
    public:
     DiscreteVelocityScheme(double cells, double lower_bound, double upper_bound);
+    void setVelocitySpace(double number, double min, double max);
+
+    void init_U(void);
 
     void setDensityInRange(double min, double max, density_function eq);
 
-    void setDensityInRange(double min, double max);
-    void setVelocitySpace(double number, double min, double max);
+
 
     void time_march_to(double df, double dt, double tau);
 
     friend std::ostream &operator<<(std::ostream &out, const DiscreteVelocityScheme &dsv);
 
-    void writeF(double x, string filename);
+    void write_U(string filename);
 
     void testFuntions();
 
@@ -47,14 +49,23 @@ class DiscreteVelocityScheme {
     double upper_bound;
     double dx;
     double dv;
-    
+
     vector<double> x_pos;
     vector<double> vel_space;
+
+
+    //could probably of have used eigen.h
+    vector<vector<double>> U;
 
     vector<double> rho();
     vector<double> p();
     vector<double> q();
     vector<double> u();
+
+    double rho(int index);
+    double p(int index);
+    double q(int index);
+    double u(int index);
 
     vector<double> F_minus_half(int index);
     vector<double> F_plus_half(int index);
