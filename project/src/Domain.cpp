@@ -44,7 +44,7 @@ double Domain::u() {
     for (size_t i = 0; i < num_dis.size(); ++i) {
         total += vel_space[i] * num_dis[i];
     }
-    return total;
+    return total / rho();
 }
 
 double Domain::p() {
@@ -74,7 +74,7 @@ double Domain::q() {
 Domain Domain::operator+(const Domain& d) {
     Domain new_d;
     for (size_t i = 0; i < d.vel_space.size(); ++i) {
-        new_d.vel_space.push_back(d.vel_space[i] + vel_space[i]);
+        new_d.vel_space.push_back(vel_space[i] + d.vel_space[i]);
         new_d.num_dis.push_back(num_dis[i] + d.num_dis[i]);
     }
 

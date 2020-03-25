@@ -9,7 +9,7 @@ using namespace std;
 
 int main(void) {
     //creates a dvs that has 500 cells with x range [0m - 10m]
-    DiscreteVelocityScheme dsv(50, 0, 10);
+    DiscreteVelocityScheme dsv(100, 0, 10);
 
 
     //sets the velocity space to be 100 cells ranging from 
@@ -35,7 +35,7 @@ int main(void) {
     dsv.printDomain(dsv.U,"test");
 
 
-    dsv.time_march_to(6E-4,1E-4,1.0);
+    dsv.time_march_to(2E-4,1E-4,1.0);
 
     //cout << dsv;
 
