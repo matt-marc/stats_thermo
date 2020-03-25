@@ -43,11 +43,13 @@ class DiscreteVelocityScheme {
 
 
    private:
-    double cells;
     double lower_bound;
     double upper_bound;
     double dx;
+    double dv;
+    
     vector<double> x_pos;
+    vector<double> vel_space;
 
     vector<double> rho();
     vector<double> p();

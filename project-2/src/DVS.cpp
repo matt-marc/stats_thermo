@@ -6,8 +6,7 @@
 
 using namespace std;
 
-DiscreteVelocityScheme::DiscreteVelocityScheme(double _cells, double lb, double ub) {
-    cells = _cells;
+DiscreteVelocityScheme::DiscreteVelocityScheme(double cells, double lb, double ub) {
     lower_bound = lb;
     upper_bound = ub;
 
@@ -23,7 +22,12 @@ DiscreteVelocityScheme::DiscreteVelocityScheme(double _cells, double lb, double 
 }
 
 void DiscreteVelocityScheme::setVelocitySpace(double num, double min, double max) {
-    for (size_t i = 0; i < x_pos.size(); ++i) {
+    dv = (max - min) / (num-1);
+
+    vel_space.push_back(min);
+
+    for (int i = 1; i < num; ++i) {
+        vel_space.push_back(vel_space[i-1] + dv);
     }
 }
 
@@ -43,13 +47,11 @@ vector<double> DiscreteVelocityScheme::rho() {
 vector<double> DiscreteVelocityScheme::p() {
     vector<double> p;
 
-
     return p;
 }
 
 vector<double> DiscreteVelocityScheme::u() {
     vector<double> u;
-
 
     return u;
 }
@@ -88,19 +90,27 @@ void DiscreteVelocityScheme::testFuntions() {
     auto a = F_minus_half(0);
 }
 
-
-
-ostream& operator<<(std::ostream& out, const DiscreteVelocityScheme(&dsv)) {
+ostream& operator<<(std::ostream& out, const DiscreteVelocityScheme(&dvs)) {
     out << "Current Domain for problem" << endl;
-    out << "x [" << dsv.lower_bound << " " << dsv.upper_bound << "]" << endl;
-    out << "dx " << dsv.dx << endl;
+    out << "x [" << dvs.lower_bound << " " << dvs.upper_bound << "]" << endl;
+    out << "dx " << dvs.dx << endl;
 
-    for (size_t i = 0; i < dsv.x_pos.size(); ++i) {
-        out << "x[" << i << "] = " << dsv.x_pos[i] << endl;
-    }
+    out << "x pos cell middle cell valls" << endl;
+    out << dvs.x_pos[0] << endl;
+    out << dvs.x_pos[1] << endl;
+    out << "..." << endl;
+    out << dvs.x_pos[dvs.x_pos.size() - 2] << endl;
+    out << dvs.x_pos[dvs.x_pos.size() - 1] << endl;
 
     out << endl;
     out << "Velocity space set for each cell" << endl;
+    out << "v [" << dvs.vel_space[0] << " " << dvs.vel_space[dvs.vel_space.size() - 1]<< "]" << endl;
+    out << "dv " << dvs.dv << endl;
+    out << dvs.vel_space[0] << endl;
+    out << dvs.vel_space[1] << endl;
+    out << "..." << endl;
+    out << dvs.vel_space[dvs.vel_space.size() - 2] << endl;
+    out << dvs.vel_space[dvs.vel_space.size() - 1] << endl;
 
     return out;
 }

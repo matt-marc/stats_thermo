@@ -18,25 +18,25 @@ int main(void) {
 
 
     //creates a density function with rho, v, p
-    density_function left(4.696, 0.0, 404.0 * 1000.0);
+    //density_function left(4.696, 0.0, 404.0 * 1000.0);
 
     //creates a density function with rho, v, p
-    density_function right(1.408, 0.0, 101.1 * 1000.0);
+    //density_function right(1.408, 0.0, 101.1 * 1000.0);
 
 
     //sets the density based on the function to the range
     // of [0 - 5m] and [5m - 10m]
-    dsv.setDensityInRange(0, 5, left);
-    dsv.setDensityInRange(5, 10, right);
+    //dsv.setDensityInRange(0, 5, left);
+    //dsv.setDensityInRange(5, 10, right);
 
     //dsv.writeF(0.5, "left");
     //dsv.writeF(8.4, "right");
 
 
 
-    dsv.time_march_to(0.006,1E-5,0.1);
+    //dsv.time_march_to(0.006,1E-5,0.1);
 
-    //cout << dsv;
+    cout << dsv;
 
     return 0;
 }
