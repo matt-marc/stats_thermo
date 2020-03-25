@@ -32,7 +32,6 @@ int main(void) {
     //dsv.writeF(0.5, "left");
     //dsv.writeF(8.4, "right");
 
-    dsv.printDomain(dsv.U,"initial_con");
 
 
     dsv.time_march_to(0.006,1E-5,0.1);
