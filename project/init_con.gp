@@ -10,10 +10,10 @@ set title "Density of paricles for given x velocity"
 set yrange [ * : * ] noreverse writeback
 set rrange [ * : * ] noreverse writeback
 
-set title "Inital density of paricles for given x velocity right"
+set title "Velocity space number distribution at x = 8.425m"
 set output "right_init_conditions.png"
 plot "right.dat" u 1:2
 
-set title "Inital density of paricles for given x velocity left"
+set title "Velocity space number distribution at x = 0.525m"
 set output "left_init_conditions.png"
 plot "left.dat" u 1:2

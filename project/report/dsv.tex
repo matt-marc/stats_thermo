@@ -28,36 +28,75 @@ the shock tube for both initial conditions.
 The distribution function in velocity space can be determined by applying Maxwell-Boltzmann distribution
 for various ranges in velocity space.
 \[
-        f = \frac{\rho}{m} \Big( \frac{\rho}{2 \pi p}\Big)^{\frac{1}{2}}e^{\frac{\rho}{2 p}c^2}
+        f = \frac{\rho}{m} \Big( \frac{\rho}{2 \pi p}\Big)^{\frac{1}{2}}e^{\frac{\rho}{2 p}(u-v)^2}
 \]
-
-
-
 \begin{figure}[H]%
     \centering
-    \subfloat[Left inital conditions]{{\includegraphics[width=7cm]{left_init_50} }}%
+    \subfloat[Left initial conditions]{{\includegraphics[width=7cm]{left_init_100} }}%
     \qquad
-    \subfloat[Right inital conditions]{{\includegraphics[width=7cm]{right_init_50} }}%
-    \caption{Distribution function at initial conditions \newline velocity range of $\pm \SI{50}{\meter \per \second}$
+    \subfloat[Right initial conditions]{{\includegraphics[width=7cm]{right_init_100} }}%
+    \caption{Distribution function at initial conditions \newline velocity range of $\pm \SI{100}{\meter \per \second}$
  }
-    \label{fig:init_50}%
+    \label{fig:init_100}%
 \end{figure}
-Figure \ref{fig:init_50} shows the distribution function for the left and right initial conditions.
-The velocity space selected was ranging from $\SI{-50}{\meter \per \second}$ to $\SI{50}{\meter \per \second}$
-This range of velocity seem way too large as the number density is near zero at the $\SI{30}{\meter \per \second}$
-range
-\begin{figure}[H]%
+
+\noindent
+Figure \ref{fig:init_100} shows the distribution function for the left and right initial conditions.
+The velocity space selected was ranging from $\pm \SI{100}{\meter \per \second}$.
+This range of velocity as shown in Figure \ref{fig:init_100} is insufficient as the tail
+end of the distribution is cut off for both the left and right ends of the shock tubes.
+\begin{figure}[H]
     \centering
-    \subfloat[Left inital conditions]{{\includegraphics[width=7cm]{left_init_30} }}%
+    \subfloat[Left initial conditions]{{\includegraphics[width=7cm]{left_init_1000} }}%
     \qquad
-    \subfloat[Right inital conditions]{{\includegraphics[width=7cm]{right_init_30} }}%
-    \caption{Distribution function at initial conditions \newline velocity range of $\pm \SI{30}{\meter \per \second}$
+    \subfloat[Right initial conditions]{{\includegraphics[width=7cm]{right_init_1000} }}%
+    \caption{Distribution function at initial conditions \newline velocity range of $\pm \SI{1000}{\meter \per \second}$
  }
-    \label{fig:init_30}%
+    \label{fig:init_1000}
 \end{figure}
-Selecting a velocity range of $\pm \SI{30}{\meter \per \second}$, as shown in \ref{fig:init_30} we obtain
-a more refined velocity space.
-Such that we are not computing properties of particles who's number density is near zero.
+
+\noindent
+Selecting a velocity range of $\pm \SI{1000}{\meter \per \second}$, as shown in \ref{fig:init_1000} we obtain
+a velocity space that covers the full distribution of the particle space.
+
+
+In addition to verifying the velocity space distribution we can also evaluate the properties of the gas
+at those initial conditions.
+The properties of the gas can be computed at each point in the $x$ direction by the following equations.
+
+\begin{align*}
+        \rho &= \langle m F \rangle  &  c = v-u\\
+        \rho u &= \langle m v F \rangle \\
+        p &= \langle m c^2 F \rangle \\
+        q &= \frac{1}{2}\langle m c^3 F \rangle \\
+\end{align*}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Left initial conditions]{{\includegraphics[width=7cm]{init-rho} }}%
+    \qquad
+    \subfloat[Right initial conditions]{{\includegraphics[width=7cm]{init-u} }}%
+    \caption{Initial conditions $\rho,  u$
+ }
+    \label{fig:init-rho_u}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \subfloat[Left initial conditions]{{\includegraphics[width=7cm]{init-p} }}%
+    \qquad
+    \subfloat[Right initial conditions]{{\includegraphics[width=7cm]{init-q} }}%
+    \caption{Initial conditions $p, q$
+ }
+    \label{fig:init-p_q}
+\end{figure}
+
+\noindent
+As shown in Figure \ref{fig:init-rho_u} and \ref{fig:init-p_q} the initial density calculated using the
+set number density of the particles is around the $\SI{4.696}{\kilogram \per \meter^3}$
+and $\SI{1.408}{\kilogram \per \meter^3}$.
+The initial velocities and heat flux are near zero and the pressure is set to be near
+$\SI{404.4}{\kilo \pascal}$ and $\SI{101.1}{\kilo \pascal}$.
 
 
 \end{document}

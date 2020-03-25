@@ -82,18 +82,26 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
             dt = tf - c_t;
         }
 
-        vector<Domain> u_hat;
-        vector<Domain> tau_m;
+        vector<Domain> u_n_p1;
+
         vector<double> f_flux;
 
         // probably not the most efficent thing in the world
         for (size_t i = 0; i < U.size(); ++i) {
             f_flux = F_flux(i, dx, dt);
-            Domain d(f_flux, U[0].vel_space);
-            u_hat.push_back(U[i] + d);
+
+            vector<double> u_hat_i;
+            vector<double> tau_m;
+            vector<double> u_n_i;
+            for (size_t j = 0; j < f_flux.size(); ++j) {
+                u_hat_i.push_back(f_flux[j] + U[i].num_dis[j]);
+                tau_m.push_back((1 / tau) * u_hat_i[j]);
+                u_n_i.push_back((u_hat_i[j] + tau_m[j]) / one_p_tau);
+            }
+            u_n_p1.push_back(Domain(u_n_i, U[i].vel_space));
         }
 
-        U = u_hat;
+        U = u_n_p1;
 
         c_t += dt;
     }
@@ -139,7 +147,7 @@ vector<double> DiscreteVelocityScheme::F_plus_half(int index) {
     //egde case if we are at the rightmost cell
     // then F_(i+1) = 0
     if (index == (int)x_pos.size() - 1) {
-        f_i_p1 = U[x_pos.size()-1].num_dis;
+        f_i_p1 = U[x_pos.size() - 1].num_dis;
     } else {
         f_i_p1 = U[index + 1].num_dis;
     }

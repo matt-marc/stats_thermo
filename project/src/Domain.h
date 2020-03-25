@@ -44,5 +44,4 @@ class Domain {
     double max;
     double dv;
 };
-
 #endif
