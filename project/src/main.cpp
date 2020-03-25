@@ -35,7 +35,7 @@ int main(void) {
     dsv.printDomain(dsv.U,"test");
 
 
-    dsv.time_march_to(2E-4,1E-4,1.0);
+    dsv.time_march_to(10E-4,1E-4,1.0);
 
     //cout << dsv;
 

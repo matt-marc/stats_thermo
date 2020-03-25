@@ -77,12 +77,54 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
 
     double c_t = 0.0;
 
+    while (c_t < tf) {
+        if (c_t + dt > tf) {
+            dt = tf - c_t;
+        }
+
+        vector<Domain> u_hat;
+        vector<Domain> tau_m;
+        vector<double> f_flux;
+
+        // probably not the most efficent thing in the world
+        for (size_t i = 0; i < U.size(); ++i) {
+            f_flux = F_flux(i, dx, dt);
+            Domain d(f_flux, U[0].vel_space);
+            u_hat.push_back(U[i] + d);
+        }
+
+        U = u_hat;
+
+        c_t += dt;
+    }
+    printDomain(U,"ms6");
+
     vector<Domain> uf;
 }
 
 vector<double> DiscreteVelocityScheme::F_minus_half(int index) {
     vector<double> f_i_mf;
     vector<double> f_i_m1;
+
+    vector<double> f_i = U[index].num_dis;
+    vector<double> v_i = U[index].vel_space;
+
+    //edge case, if we are at the left most cell
+    // then F_(i-1) woudl be zero
+    if (index == 0) {
+        f_i_m1 = U[0].num_dis;
+    } else {
+        f_i_m1 = U[index - 1].num_dis;
+    }
+
+    for (size_t i = 0; i < f_i.size(); ++i) {
+        //if moving to left use F_i
+        if (v_i[i] < 0) {
+            f_i_mf.push_back(v_i[i] * f_i[i]);
+        } else {
+            f_i_mf.push_back(v_i[i] * f_i_m1[i]);
+        }
+    }
 
     return f_i_mf;
 }
@@ -91,11 +133,37 @@ vector<double> DiscreteVelocityScheme::F_plus_half(int index) {
     vector<double> f_i_pf;
     vector<double> f_i_p1;
 
+    vector<double> f_i = U[index].num_dis;
+    vector<double> v_i = U[index].vel_space;
+
+    //egde case if we are at the rightmost cell
+    // then F_(i+1) = 0
+    if (index == (int)x_pos.size() - 1) {
+        f_i_p1 = U[x_pos.size()-1].num_dis;
+    } else {
+        f_i_p1 = U[index + 1].num_dis;
+    }
+
+    for (size_t i = 0; i < f_i.size(); ++i) {
+        //if moving to right use F_i
+        if (v_i[i] > 0) {
+            f_i_pf.push_back(v_i[i] * f_i[i]);
+        } else {
+            f_i_pf.push_back(v_i[i] * f_i_p1[i]);
+        }
+    }
+
     return f_i_pf;
 }
 
 vector<double> DiscreteVelocityScheme::F_flux(int index, double _dx, double dt) {
     vector<double> f_flux;
+    vector<double> f_mf = F_minus_half(index);
+    vector<double> f_pf = F_plus_half(index);
+
+    for (size_t i = 0; i < f_mf.size(); ++i) {
+        f_flux.push_back(dt * (f_mf[i] - f_pf[i]) / _dx);
+    }
 
     return f_flux;
 }
@@ -141,7 +209,7 @@ void DiscreteVelocityScheme::printDomain(vector<Domain> d, string filename) {
     outfile.open(filename, ios_base::app);
 
     for (size_t i = 0; i < x_pos.size(); ++i) {
-        outfile << x_pos[i] << " " << d[i].rho() << " " << d[i].u() << " " << d[i].p() << " " << d[i].q() endl;
+        outfile << x_pos[i] << " " << d[i].rho() << " " << d[i].u() << " " << d[i].p() << " " << d[i].q() << endl;
     }
 }
 
