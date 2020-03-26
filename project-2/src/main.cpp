@@ -13,7 +13,7 @@ int main(void) {
 
     //sets the velocity space to be 100 cells ranging from
     // [-1000m/s to 1000m/s]
-    dvs.setVelocitySpace(100, -1000, 1000);
+    dvs.setVelocitySpace(300, -10000, 10000);
 
     //creates a density function with rho, u, p
     density_function left(4.696, 0.0, 404.0 * 1000.0);
@@ -31,7 +31,7 @@ int main(void) {
 
     dvs.write_U("initial_con");
 
-    dvs.time_march_to(0.006,1E-5,1);
+    dvs.time_march_to(0.006,1E-5,0.01);
 
     dvs.write_U("ms6");
 

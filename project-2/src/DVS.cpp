@@ -68,6 +68,14 @@ double DiscreteVelocityScheme::rho(int index) {
     return total;
 }
 
+double DiscreteVelocityScheme::rho(vector<double> u) {
+    double total = 0.0;
+    for (size_t j = 0; j < vel_space.size(); ++j) {
+        total += u[j];
+    }
+    return total;
+}
+
 vector<double> DiscreteVelocityScheme::u() {
     vector<double> u;
 
@@ -93,6 +101,15 @@ double DiscreteVelocityScheme::u(int index) {
     return total / rho(index);
 }
 
+double DiscreteVelocityScheme::u(vector<double> u) {
+    double total = 0.0;
+
+    for (size_t j = 0; j < vel_space.size(); ++j) {
+        total += u[j] * vel_space[j];
+    }
+    return total / rho(u);
+}
+
 vector<double> DiscreteVelocityScheme::p() {
     vector<double> p;
 
@@ -110,6 +127,23 @@ vector<double> DiscreteVelocityScheme::p() {
         p.push_back(total);
     }
     return p;
+}
+
+double DiscreteVelocityScheme::p(vector<double> f) {
+    vector<double> p;
+
+    double total;
+    double c;
+    double uu;
+
+    total = 0.0;
+    uu = u(f);
+    for (size_t j = 0; j < vel_space.size(); ++j) {
+        c = vel_space[j] - uu;
+        total += f[j] * c * c;
+    }
+
+    return total;
 }
 
 vector<double> DiscreteVelocityScheme::q() {
@@ -132,36 +166,38 @@ vector<double> DiscreteVelocityScheme::q() {
 }
 
 void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
-    const double one_p_tau = (1.0 + (1.0 / tau));
     double c_t = 0.0;
 
     while (c_t < tf) {
         if (c_t + dt > tf) {
             dt = tf - c_t;
         }
+
+        double one_p_tau = (1.0 + (dt / tau));
         vector<vector<double>> u_n_p1;
-        //cout << U.size() << endl;
-        //cout << U[0].size() << endl;
 
         for (size_t i = 0; i < x_pos.size(); ++i) {
             vector<double> u_i;
-            double u_i_hat;
-            double m_tau;
+            vector<double> m_i;
+            vector<double> u_i_hat;
 
             for (size_t j = 0; j < vel_space.size(); ++j) {
-                u_i_hat = U[i][j] + F_flux(i, j, dx, dt);
-                m_tau = u_i_hat / tau;
-
-                u_i.push_back((u_i_hat + m_tau) / one_p_tau);
-                //u_i.push_back(u_i_hat);
+                u_i_hat.push_back(U[i][j] + F_flux(i, j, dx, dt));
             }
 
+            double m_rho = rho(u_i_hat);
+            double m_u = u(u_i_hat);
+            double m_p = p(u_i_hat);
+
+            density_function m(m_rho, m_u, m_p);
+
+            for (size_t j = 0; j < vel_space.size(); ++j) {
+                m_i.push_back(dt * m(vel_space[j]) / tau);
+
+                u_i.push_back((u_i_hat[j] + m_i[j]) / one_p_tau);
+            }
             u_n_p1.push_back(u_i);
         }
-        //cout << u_hat.size() << endl;
-        //cout << u_hat[0].size() << endl;
-        //cout << c_t << endl;
-        //break;
 
         U = u_n_p1;
         c_t += dt;
