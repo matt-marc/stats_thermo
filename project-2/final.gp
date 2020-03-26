@@ -10,19 +10,19 @@ set multiplot layout 2,2 rowsfirst
 set title "density of paricles"
 #set xlable "Distance x [m]"
 #set ylable "Density"
-plot "ms6.dat" u 1:2
+plot "ms6.dat" u 1:2 w l
 # --- GRAPH b
 set title "velocity of paricles"
 #set xlable "Distance x [m]"
 #set ylable "Velocity [m/s]"
-plot "ms6.dat" u 1:3
+plot "ms6.dat" u 1:3 w l
 # --- GRAPH c
 set title "pressure of paricles"
 #set xlable "Distance x [m]"
 #set ylable "Pressure [Pa]"
-plot "ms6.dat" u 1:4
+plot "ms6.dat" u 1:4 w l
 # --- GRAPH d
 set title "heat flux"
 #set xlable "Distance x [m]"
-plot "ms6.dat" u 1:5
+plot "ms6.dat" u 1:5 w l
 unset multiplot

@@ -63,6 +63,7 @@ class DiscreteVelocityScheme {
     double u(int index);
 
     vector<double> F_flux(int index, double dx, double dt);
+    double F_flux(int index, int vel_index, double dx, double dt);
 };
 
 #endif

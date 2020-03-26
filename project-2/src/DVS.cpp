@@ -135,32 +135,40 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
     const double one_p_tau = (1.0 + (1.0 / tau));
     double c_t = 0.0;
 
-    vector<vector<double>> u_hat;
+    vector<vector<double>> u_n_p1;
 
     while (c_t < tf) {
         if (c_t + dt > tf) {
             dt = tf - c_t;
         }
+        //cout << U.size() << endl;
+        //cout << U[0].size() << endl;
 
         for (size_t i = 0; i < x_pos.size(); ++i) {
-            auto flux = F_flux(i, dx, dt);
             vector<double> u_i;
-            for (size_t j = 0; j < vel_space.size(); ++j) {
-                u_i.push_back(U[i][j] + flux[j]);
-            }
-            u_hat.push_back(u_i);
-        }
-        //cout << c_t << endl;
+            double u_i_hat;
+            double m_tau;
 
-        U = u_hat;
+            for (size_t j = 0; j < vel_space.size(); ++j) {
+                u_i_hat = U[i][j] + F_flux(i, j, dx, dt);
+                m_tau = u_i_hat / tau;
+
+                u_i.push_back(((u_i_hat + m_tau) / one_p_tau));
+            }
+
+            u_n_p1.push_back(u_i);
+        }
+        //cout << u_hat.size() << endl;
+        //cout << u_hat[0].size() << endl;
+        //cout << c_t << endl;
+        //break;
+
+        U = u_n_p1;
         c_t += dt;
     }
 }
 
-vector<double> DiscreteVelocityScheme::F_flux(int index, double _dx, double dt) {
-    vector<double> f_flux;
-
-    double v_i;
+double DiscreteVelocityScheme::F_flux(int index, int vel_index, double _dx, double dt) {
     double f_i_mf;
     double f_i_pf;
 
@@ -168,37 +176,34 @@ vector<double> DiscreteVelocityScheme::F_flux(int index, double _dx, double dt) 
     double f_i_m1;
     double f_i_p1;
 
-    for (size_t i = 0; i < vel_space.size(); ++i) {
-        if (index == 0) {
-            f_i = U[index][i];
-            f_i_m1 = U[index][i];
-            f_i_p1 = U[index + 1][i];
-        } else if (index == x_pos.size() - 1) {
-            f_i = U[index][i];
-            f_i_m1 = U[index - 1][i];
-            f_i_p1 = U[index][i];
-        } else {
-            f_i = U[index][i];
-            f_i_m1 = U[index - 1][i];
-            f_i_p1 = U[index + 1][i];
-        }
+    double v_i = vel_space[vel_index];
 
-        v_i = vel_space[i];
-
-        if (v_i >= 0) {
-            f_i_mf = v_i * f_i;
-            f_i_pf = v_i * f_i;
-
-        } else {
-            f_i_mf = v_i * f_i_m1;
-            f_i_pf = v_i * f_i_p1;
-        }
-
-        double flux = dt * (f_i_mf - f_i_pf) / _dx;
-        f_flux.push_back(flux);
+    if (index == 0) {
+        f_i = U[index][vel_index];
+        f_i_m1 = U[index][vel_index];
+        f_i_p1 = U[index + 1][vel_index];
+    } else if (index == x_pos.size() - 1) {
+        f_i = U[index][vel_index];
+        f_i_m1 = U[index - 1][vel_index];
+        f_i_p1 = U[index][vel_index];
+    } else {
+        f_i = U[index][vel_index];
+        f_i_m1 = U[index - 1][vel_index];
+        f_i_p1 = U[index + 1][vel_index];
     }
 
-    return f_flux;
+    if (v_i < 0) {
+        f_i_mf = v_i * f_i;
+        f_i_pf = v_i * f_i;
+
+    } else {
+        f_i_mf = v_i * f_i_m1;
+        f_i_pf = v_i * f_i_p1;
+    }
+
+    double flux = dt * (f_i_mf - f_i_pf) / _dx;
+
+    return flux;
 }
 
 void DiscreteVelocityScheme::testFuntions() {
