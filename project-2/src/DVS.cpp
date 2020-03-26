@@ -152,7 +152,7 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
                 u_i_hat = U[i][j] + F_flux(i, j, dx, dt);
                 m_tau = u_i_hat / tau;
 
-                u_i.push_back(((u_i_hat + m_tau) / one_p_tau));
+                u_i.push_back((u_i_hat + m_tau) / one_p_tau);
                 //u_i.push_back(u_i_hat);
             }
 
