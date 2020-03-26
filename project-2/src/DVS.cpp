@@ -154,6 +154,7 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
                 m_tau = u_i_hat / tau;
 
                 u_i.push_back(((u_i_hat + m_tau) / one_p_tau));
+                //u_i.push_back(u_i_hat);
             }
 
             u_n_p1.push_back(u_i);
@@ -194,11 +195,11 @@ double DiscreteVelocityScheme::F_flux(int index, int vel_index, double _dx, doub
 
     if (v_i < 0) {
         f_i_mf = v_i * f_i;
-        f_i_pf = v_i * f_i;
+        f_i_pf = v_i * f_i_p1;
 
     } else {
         f_i_mf = v_i * f_i_m1;
-        f_i_pf = v_i * f_i_p1;
+        f_i_pf = v_i * f_i;
     }
 
     double flux = dt * (f_i_mf - f_i_pf) / _dx;
