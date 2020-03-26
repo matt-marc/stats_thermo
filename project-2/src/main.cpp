@@ -31,7 +31,7 @@ int main(void) {
 
     dvs.write_U("initial_con");
 
-    dvs.time_march_to(0.006,1E-4,100);
+    dvs.time_march_to(0.0006,1E-5,1E-7);
 
     dvs.write_U("ms6");
 
