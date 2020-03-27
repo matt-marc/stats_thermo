@@ -220,7 +220,7 @@ double DiscreteVelocityScheme::F_flux(int index, int vel_index, double _dx, doub
         f_i = U[index][vel_index];
         f_i_m1 = U[index][vel_index];
         f_i_p1 = U[index + 1][vel_index];
-    } else if (index == x_pos.size() - 1) {
+    } else if (index == (int) x_pos.size() - 1) {
         f_i = U[index][vel_index];
         f_i_m1 = U[index - 1][vel_index];
         f_i_p1 = U[index][vel_index];

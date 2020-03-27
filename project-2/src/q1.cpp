@@ -9,11 +9,11 @@ using namespace std;
 
 int main(void) {
     //creates a dvs that has 500 cells with x range [0m - 10m]
-    DiscreteVelocityScheme dvs(200, 0, 10);
+    DiscreteVelocityScheme dvs(500, 0, 10);
 
     //sets the velocity space to be 100 cells ranging from
     // [-1000m/s to 1000m/s]
-    dvs.setVelocitySpace(300, -1000, 1000);
+    dvs.setVelocitySpace(500, -2000, 2000);
 
     //creates a density function with rho, u, p
     density_function left(4.696, 0.0, 404.0 * 1000.0);
@@ -40,7 +40,7 @@ int main(void) {
 
 
 
-    dvs.time_march_to(0.006, 1E-5, 0.01);
+    dvs.time_march_to(0.0006, 1E-6, 0.000001);
 
     dvs.write_U("ms6");
 

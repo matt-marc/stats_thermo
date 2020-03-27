@@ -21,7 +21,7 @@
 \maketitle
 
 
-\section*{Shock-Tube Problem}
+\section{Shock-Tube Problem}
 For the initial conditions of the shock-tube we must select an appropriate velocity space.
 This velocity space can be determined by observing the distribution function on each side of
 the shock tube for both initial conditions.
@@ -98,7 +98,7 @@ and $\SI{1.408}{\kilogram \per \meter^3}$.
 The initial velocities and heat flux are near zero and the pressure is set to be near
 $\SI{404.4}{\kilo \pascal}$ and $\SI{101.1}{\kilo \pascal}$.
 
-\subsection*{Results}
+\subsection{Results}
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{tau10}
@@ -155,4 +155,22 @@ observer the most likely velocities particles are to be found at those given poi
         \caption{Velocity distribution near center of shock-tube}
         \label{fig:center_shock}
 \end{figure}
+
+
+\section{Shock-wave problem}
+For this problem the up-steam conditions are set to the following
+\begin{align*}
+        \rho &= \SI{1.225}{\kilogram \per \meter^3}\\
+        p &= \SI{101.325}{\kilo \pascal}
+\end{align*}
+Because we know that $\gamma = 3.0$ we can determine the speed of sound for the fluid by the following
+equation.
+\[
+        c= \sqrt{\gamma \frac{p}{\rho}}
+\]
+The velocity of the fluid can then be calculated for a given Mach $M$, by the following equation.
+\[
+v = M \sqrt{\gamma \frac{p}{\rho}}
+\]
+
 \end{document}
