@@ -26,11 +26,19 @@ int main(void) {
     dvs.setDensityInRange(0, 5, left);
     dvs.setDensityInRange(5, 10, right);
 
+
+    //creates init F distribution graphs
+    dvs.write_F("left_init",0.5);
+    dvs.write_F("right_init",8.4);
+
+    //prints out inital rho, u, p, q of domain
+    dvs.write_U("initial_con");
+
     cout << "Domain set for Q1" << endl;
     cout << dvs;
     cout << "Begin time marching" << endl;
 
-    dvs.write_U("initial_con");
+
 
     dvs.time_march_to(0.006, 1E-5, 0.01);
 
