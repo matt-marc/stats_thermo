@@ -44,8 +44,8 @@ int main(void) {
 
     dvs.write_U("ms6");
 
-    dvs.write_F("left_final",0.6);
-    dvs.write_F("right_final",9.0);
+    dvs.write_F("left_final",3.0);
+    dvs.write_F("right_final",8.0);
     dvs.write_F("shock",4.5);
 
     return 0;
