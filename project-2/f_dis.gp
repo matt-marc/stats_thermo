@@ -22,10 +22,10 @@ set title "Velocity space number distribution at x = 4.525m after 6ms"
 set output "center_shock.png"
 plot "shock.dat" u 1:2
 
-set title "Initial Velocity space number distribution at x = 8.425m"
-set output "right_init_conditions.png"
-plot "right_init.dat" u 1:2
-
-set title "Initial Velocity space number distribution at x = 0.525m"
-set output "left_init_conditions.png"
-plot "left_init.dat" u 1:2
+#set title "Initial Velocity space number distribution at x = 8.425m"
+#set output "right_init_conditions.png"
+#plot "right_init.dat" u 1:2
+#
+#set title "Initial Velocity space number distribution at x = 0.525m"
+#set output "left_init_conditions.png"
+#plot "left_init.dat" u 1:2
