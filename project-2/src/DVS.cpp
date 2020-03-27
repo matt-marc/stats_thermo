@@ -29,6 +29,8 @@ void DiscreteVelocityScheme::setVelocitySpace(double num, double min, double max
     for (int i = 1; i < num; ++i) {
         vel_space.push_back(vel_space[i - 1] + dv);
     }
+    //sets the size of the U matrix, filled with zeros
+    init_U();
 }
 
 void DiscreteVelocityScheme::init_U() {
@@ -242,27 +244,6 @@ double DiscreteVelocityScheme::F_flux(int index, int vel_index, double _dx, doub
     return flux;
 }
 
-void DiscreteVelocityScheme::testFuntions() {
-    string filename = "test";
-    ofstream outfile;
-    outfile.open(filename + ".dat");
-    outfile << "# F distribution at position" << endl;
-    outfile.close();
-
-    outfile.open(filename + ".dat", ios_base::app);
-
-    auto r = rho();
-
-    auto test = U[0];
-    for (auto t : test) {
-        // cout << t << endl;
-    }
-
-    for (size_t i = 0; i < x_pos.size(); ++i) {
-        outfile << x_pos[i] << " " << r[i] << endl;
-    }
-}
-
 ostream& operator<<(std::ostream& out, const DiscreteVelocityScheme(&dvs)) {
     out << "Current Domain for problem" << endl;
     out << "x [" << dvs.lower_bound << " " << dvs.upper_bound << "]" << endl;
@@ -303,5 +284,35 @@ void DiscreteVelocityScheme::write_U(string filename) {
 
     for (size_t i = 0; i < x_pos.size(); ++i) {
         outfile << x_pos[i] << " " << r[i] << " " << uu[i] << " " << pp[i] << " " << qq[i] << endl;
+    }
+}
+
+void DiscreteVelocityScheme::write_F(string filename, double x) {
+    int index = 0;
+
+    for (size_t i = 0; i < x_pos.size(); ++i) {
+        if (x_pos[i] >= x) {
+            index = i;
+            break;
+        }
+    }
+
+    double r = rho(index);
+    double uu = u(index);
+
+
+    ofstream outfile;
+    outfile.open(filename + ".dat");
+    outfile << "# At position " << x_pos[index] << endl;
+    outfile << "# values are following" << endl;
+    outfile << "# rho " << r << endl;
+    outfile << "# u " << uu << endl;
+
+    outfile.close();
+
+    outfile.open(filename + ".dat", ios_base::app);
+
+    for (size_t i = 0; i < vel_space.size(); ++i) {
+        outfile << vel_space[i] << " " << U[index][i] << endl;
     }
 }

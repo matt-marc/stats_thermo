@@ -21,7 +21,6 @@ int main(void) {
     //creates a density function with rho, v, p
     density_function right(1.408, 0.0, 101.1 * 1000.0);
 
-    dvs.init_U();
 
     //sets the density based on the function to the range
     // of [0 - 5m] and [5m - 10m]

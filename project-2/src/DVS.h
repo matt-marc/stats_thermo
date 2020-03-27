@@ -28,17 +28,14 @@ class DiscreteVelocityScheme {
     DiscreteVelocityScheme(double cells, double lower_bound, double upper_bound);
     void setVelocitySpace(double number, double min, double max);
 
-    void init_U(void);
-
     void setDensityInRange(double min, double max, density_function eq);
 
     void time_march_to(double df, double dt, double tau);
 
-    friend std::ostream &operator<<(std::ostream &out, const DiscreteVelocityScheme &dsv);
-
     void write_U(string filename);
+    void write_F(string filename, double x);
 
-    void testFuntions();
+    friend std::ostream &operator<<(std::ostream &out, const DiscreteVelocityScheme &dsv);
 
    private:
     double lower_bound;
@@ -58,16 +55,15 @@ class DiscreteVelocityScheme {
     vector<double> u();
 
     double rho(int index);
-    double p(int index);
-    double q(int index);
     double u(int index);
 
     double rho(vector<double>);
     double u(vector<double>);
     double p(vector<double>);
 
-    vector<double> F_flux(int index, double dx, double dt);
     double F_flux(int index, int vel_index, double dx, double dt);
+
+    void init_U(void);
 };
 
 #endif
