@@ -41,7 +41,7 @@ void DiscreteVelocityScheme::setDensityInRange(double min, double max, density_f
     for (size_t i = 0; i < x_pos.size(); ++i) {
         if (x_pos[i] >= min && x_pos[i] <= max) {
             for (size_t j = 0; j < vel_space.size(); ++j) {
-                U[i][j] = eq(vel_space[j]) * dv;
+                U[i][j] = eq(vel_space[j]);
             }
         }
     }
@@ -177,28 +177,32 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
 
         double one_p_tau = (1.0 + (dt / tau));
         vector<vector<double>> u_n_p1;
+        vector<vector<double>> u_hat;
 
         for (size_t i = 0; i < x_pos.size(); ++i) {
-            vector<double> u_i;
-            vector<double> m_i;
             vector<double> u_i_hat;
-
             for (size_t j = 0; j < vel_space.size(); ++j) {
                 u_i_hat.push_back(U[i][j] + F_flux(i, j, dx, dt));
             }
+            u_hat.push_back(u_i_hat);
+        }
 
-            double m_rho = rho(u_i_hat);
-            double m_u = u(u_i_hat);
-            double m_p = p(u_i_hat);
+        for (size_t i = 0; i < x_pos.size(); ++i) {
+            double m_rho = rho(u_hat[i]);
+            double m_u = u(u_hat[i]);
+            double m_p = p(u_hat[i]);
 
-            density_function m(m_rho, m_u, m_p);
+            vector<double> m_i;
+            vector<double> u_n_i;
+
+            density_function m(m_rho, m_u, m_p, dv);
 
             for (size_t j = 0; j < vel_space.size(); ++j) {
                 m_i.push_back(dt * m(vel_space[j]) / tau);
 
-                u_i.push_back((u_i_hat[j] + m_i[j]) / one_p_tau);
+                u_n_i.push_back((u_hat[i][j] + m_i[j]) / one_p_tau);
             }
-            u_n_p1.push_back(u_i);
+            u_n_p1.push_back(u_n_i);
         }
 
         U = u_n_p1;
@@ -220,7 +224,7 @@ double DiscreteVelocityScheme::F_flux(int index, int vel_index, double _dx, doub
         f_i = U[index][vel_index];
         f_i_m1 = U[index][vel_index];
         f_i_p1 = U[index + 1][vel_index];
-    } else if (index == (int) x_pos.size() - 1) {
+    } else if (index == (int)x_pos.size() - 1) {
         f_i = U[index][vel_index];
         f_i_m1 = U[index - 1][vel_index];
         f_i_p1 = U[index][vel_index];
@@ -299,7 +303,6 @@ void DiscreteVelocityScheme::write_F(string filename, double x) {
 
     double r = rho(index);
     double uu = u(index);
-
 
     ofstream outfile;
     outfile.open(filename + ".dat");

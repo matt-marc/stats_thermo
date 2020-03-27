@@ -16,20 +16,19 @@ int main(void) {
     dvs.setVelocitySpace(500, -2000, 2000);
 
     //creates a density function with rho, u, p
-    density_function left(4.696, 0.0, 404.0 * 1000.0);
+    density_function left(4.696, 0.0, 404.0 * 1000.0, dvs.dV());
 
     //creates a density function with rho, v, p
-    density_function right(1.408, 0.0, 101.1 * 1000.0);
+    density_function right(1.408, 0.0, 101.1 * 1000.0, dvs.dV());
 
     //sets the density based on the function to the range
     // of [0 - 5m] and [5m - 10m]
     dvs.setDensityInRange(0, 5, left);
     dvs.setDensityInRange(5, 10, right);
 
-
     //creates init F distribution graphs
-    dvs.write_F("left_init",0.5);
-    dvs.write_F("right_init",8.4);
+    dvs.write_F("left_init", 0.5);
+    dvs.write_F("right_init", 8.4);
 
     //prints out inital rho, u, p, q of domain
     dvs.write_U("initial_con");
@@ -38,15 +37,13 @@ int main(void) {
     cout << dvs;
     cout << "Begin time marching" << endl;
 
-
-
-    dvs.time_march_to(0.0006, 1E-6, 0.000001);
+    dvs.time_march_to(0.006, 1E-5, 0.1);
 
     dvs.write_U("ms6");
 
-    dvs.write_F("left_final",3.0);
-    dvs.write_F("right_final",8.0);
-    dvs.write_F("shock",4.5);
+    dvs.write_F("left_final", 3.0);
+    dvs.write_F("right_final", 8.0);
+    dvs.write_F("shock", 4.5);
 
     return 0;
 }

@@ -24,10 +24,10 @@ int main(void) {
     dvs.setVelocitySpace(300, -10000, 10000);
 
     //creates a density function with rho, u, p
-    density_function left(rho, v, p);
+    density_function left(rho, v, p, dvs.dV());
 
     //creates a density function with rho, v, p
-    density_function right(rho, 0.0, p);
+    density_function right(rho, 0.0, p, dvs.dV());
 
     //sets the density based on the function to the range
     // of [0 - 5m] and [5m - 10m]

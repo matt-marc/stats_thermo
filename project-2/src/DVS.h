@@ -11,15 +11,17 @@ struct density_function {
     double rho;
     double u;
     double p;
-    density_function(double _rho, double _u, double _p) {
+    double dv;
+    density_function(double _rho, double _u, double _p, double _dv) {
         rho = _rho;
         u = _u;
         p = _p;
+        dv = _dv;
     }
     double operator()(double v) {
         double expon = exp(-0.5 * (rho / p) * (v - u) * (v - u));
         double front = pow((rho / (2 * M_PI * p)), 0.5);
-        return rho * front * expon;
+        return rho * front * expon * dv;
     }
 };
 
@@ -36,6 +38,8 @@ class DiscreteVelocityScheme {
     void write_F(string filename, double x);
 
     friend std::ostream &operator<<(std::ostream &out, const DiscreteVelocityScheme &dsv);
+
+    double dV(void) { return dv; }
 
    private:
     double lower_bound;
