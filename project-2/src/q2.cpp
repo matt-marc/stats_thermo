@@ -8,30 +8,34 @@
 using namespace std;
 
 int main(void) {
+    //sets upstream conditions
     double rho_l = 1.225;
     double p_l = 101.325 * 1000;
     double gamma = 3.0;
 
+    //mach pre shock
     double mach = 2.0;
 
     //calculating downstream conditions right
     //see report for eq_1 and 2
     double eq_1 = (2.0 * gamma * mach * mach - (gamma - 1.0)) / (gamma + 1.0);
     double eq_2 = ((gamma + 1.0) * mach * mach) / ((gamma - 1.0) * mach * mach + 2.0);
-    double mach_r = sqrt(((gamma - 1.0) * mach * mach + 2.0)/(2.0 * gamma * mach * mach - (gamma - 1.0)) );
+    double mach_r = sqrt(((gamma - 1.0) * mach * mach + 2.0) / (2.0 * gamma * mach * mach - (gamma - 1.0)));
 
+    //sets downstream rho and p
     double p_r = p_l * eq_1;
     double rho_r = rho_l * eq_2;
 
+    //sets velocity for upstream and downstram based on computed values
     double v_l = mach * sqrt(gamma * (p_l / rho_l));
     double v_r = mach_r * sqrt(gamma * (p_r / rho_r));
 
-    //creates a dvs that has 500 cells with x range [0m - 20m]
-    DiscreteVelocityScheme dvs(500, 0, 1);
+    //creates a dvs that has 500 cells with x range [0m - 0.3m]
+    DiscreteVelocityScheme dvs(500, 0, 0.3);
 
     //sets the velocity space to be 100 cells ranging from
-    // [-1000m/s to 1000m/s]
-    dvs.setVelocitySpace(500, -10000, 10000);
+    // [-20000/s to 20000/s]
+    dvs.setVelocitySpace(500, -20000, 20000);
 
     //creates a density function with rho, u, p
     density_function left(rho_l, v_l, p_l, dvs.dV());
@@ -42,11 +46,27 @@ int main(void) {
     //sets the density based on the function to the range
     // of [0 - 5m] and [5m - 10m]
     dvs.setDensityInRange(0, 0.1, left);
-    dvs.setDensityInRange(0.1, 1, right);
+    dvs.setDensityInRange(0.1, 0.3, right);
 
     dvs.write_U("initial_con");
 
-    dvs.time_march_to(0.0006, 1E-6, 1E-7);
+    cout << dvs << endl;
+
+    cout << "Begin shock time maching" << endl;
+    cout << "UPSTEAM CONDITIONS" << endl;
+    cout << "Rho:        " << rho_l << endl;
+    cout << "Pressure:   " << p_l << endl;
+    cout << "Velocity:   " << v_l << endl;
+
+    cout << endl;
+
+    cout << "DONWSTREAM CONDITIONS" << endl;
+    cout << "Rho:        " << rho_l << endl;
+    cout << "Pressure:   " << p_l << endl;
+    cout << "Velocity:   " << v_l << endl;
+    cout << endl;
+
+    dvs.time_march_to(6.0E-3, 1E-7, 1E-7);
 
     dvs.write_U("ms6");
 
