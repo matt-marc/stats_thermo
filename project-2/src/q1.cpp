@@ -11,7 +11,7 @@ int main(void) {
     //creates a dvs that has 500 cells with x range [0m - 10m]
     DiscreteVelocityScheme dvs(500, 0, 10);
 
-    //sets the velocity space to be 100 cells ranging from
+    //sets the velocity space to be 500 cells ranging from
     // [-1000m/s to 1000m/s]
     dvs.setVelocitySpace(500, -1000, 1000);
 
@@ -41,6 +41,7 @@ int main(void) {
 
     dvs.write_U("ms6");
 
+    //prints out F function at given x location
     dvs.write_F("left_final", 3.0);
     dvs.write_F("right_final", 8.0);
     dvs.write_F("shock", 4.5);
