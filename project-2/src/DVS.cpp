@@ -6,6 +6,7 @@
 
 using namespace std;
 
+//Constructor that sets the x cells
 DiscreteVelocityScheme::DiscreteVelocityScheme(double cells, double lb, double ub) {
     lower_bound = lb;
     upper_bound = ub;
@@ -21,6 +22,7 @@ DiscreteVelocityScheme::DiscreteVelocityScheme(double cells, double lb, double u
     }
 }
 
+//sets the velocity space vector
 void DiscreteVelocityScheme::setVelocitySpace(double num, double min, double max) {
     dv = (max - min) / (num - 1);
 
@@ -33,10 +35,12 @@ void DiscreteVelocityScheme::setVelocitySpace(double num, double min, double max
     init_U();
 }
 
+//createds matrix U of size [x_pos][vel_space]
 void DiscreteVelocityScheme::init_U() {
     U = vector<vector<double>>(x_pos.size(), vector<double>(vel_space.size(), 0.0));
 }
 
+//sets density function of given x-pos range [min - max]
 void DiscreteVelocityScheme::setDensityInRange(double min, double max, density_function eq) {
     for (size_t i = 0; i < x_pos.size(); ++i) {
         if (x_pos[i] >= min && x_pos[i] <= max) {
@@ -47,6 +51,7 @@ void DiscreteVelocityScheme::setDensityInRange(double min, double max, density_f
     }
 }
 
+//Computes rho for U matrix
 vector<double> DiscreteVelocityScheme::rho() {
     vector<double> rho;
     double total;
@@ -61,6 +66,7 @@ vector<double> DiscreteVelocityScheme::rho() {
     return rho;
 }
 
+//computes rho of matrix U at given index 
 double DiscreteVelocityScheme::rho(int index) {
     double total = 0.0;
 
@@ -70,6 +76,7 @@ double DiscreteVelocityScheme::rho(int index) {
     return total;
 }
 
+//computes rho for given distribution u
 double DiscreteVelocityScheme::rho(vector<double> u) {
     double total = 0.0;
     for (size_t j = 0; j < vel_space.size(); ++j) {
@@ -78,6 +85,7 @@ double DiscreteVelocityScheme::rho(vector<double> u) {
     return total;
 }
 
+//Computes u for U matrix
 vector<double> DiscreteVelocityScheme::u() {
     vector<double> u;
 
@@ -94,6 +102,7 @@ vector<double> DiscreteVelocityScheme::u() {
     return u;
 }
 
+//computes u for matrix U at index 
 double DiscreteVelocityScheme::u(int index) {
     double total = 0.0;
 
@@ -103,6 +112,7 @@ double DiscreteVelocityScheme::u(int index) {
     return total / rho(index);
 }
 
+//computes u for given distribution u
 double DiscreteVelocityScheme::u(vector<double> u) {
     double total = 0.0;
 
@@ -112,6 +122,7 @@ double DiscreteVelocityScheme::u(vector<double> u) {
     return total / rho(u);
 }
 
+//computes pressure for U matrix
 vector<double> DiscreteVelocityScheme::p() {
     vector<double> p;
 
@@ -131,6 +142,7 @@ vector<double> DiscreteVelocityScheme::p() {
     return p;
 }
 
+//computes pressure for given distribution f
 double DiscreteVelocityScheme::p(vector<double> f) {
     vector<double> p;
 
@@ -148,6 +160,7 @@ double DiscreteVelocityScheme::p(vector<double> f) {
     return total;
 }
 
+//computes q for U matrix
 vector<double> DiscreteVelocityScheme::q() {
     vector<double> q;
 
@@ -210,6 +223,7 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
     }
 }
 
+//Function computes the flux at given index x posiition and point in vel_space
 double DiscreteVelocityScheme::F_flux(int index, int vel_index, double _dx, double dt) {
     double f_i_mf;
     double f_i_pf;
