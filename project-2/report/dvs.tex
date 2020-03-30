@@ -212,7 +212,7 @@ equations.
 \subsection{Results}
 As this is a normal shock the domain (in the $x$ direction) does not have to be really large as we are only
 evaluating the conditions before and after the shock.
-Because of this a domain ranging from $\SI{0}{meter}$ to $\SI{0.5}{meter}$ was selected.
+Because of this a domain ranging from $\SI{0}{\meter}$ to $\SI{0.5}{\meter}$ was selected.
 
 
 For a mach number of $2$ the following upstream and downstream conditions were used to initially set the
@@ -232,7 +232,7 @@ Pressure:   557288Pa
 Velocity:   622.674m/s
 \end{verbatim}
 \end{center}
-With $\tau = \SI{1e-7}{}$ and a final time of $tf = \SI{1e-4}{second}$ the flow properties along the shock are the following.
+With $\tau = \SI{1e-7}{}$ and a final time of $tf = \SI{1e-4}{\second}$ the flow properties along the shock are the following.
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{mach-2-f}
@@ -269,7 +269,7 @@ Rho:        2.30588kg/m^3
 Pressure:   2.38114e+06Pa
 Velocity:   1058.55m/s
 \end{verbatim}
-With $\tau = \SI{1e-7}{}$ and a final time of $tf = \SI{1e-4}{second}$ the flow properties along the shock are the following.
+With $\tau = \SI{1e-7}{}$ and a final time of $tf = \SI{1e-4}{\second}$ the flow properties along the shock are the following.
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{mach-4-f}
@@ -293,6 +293,13 @@ at certain points along the shock.
 It is important to note that as we have significantly decreased $\tau$ compared to the
 problem 1 and the $\Delta x$ step in physical space we also needed to reduce
 the time step $\Delta t$ to still achieve stable time marching.
+Here we notice that for both distribution functions, mach $2$ and $4$ the bulk
+velocity of the fluid pre-shock is held together very closely around its initial velocity.
+Where as at the shock and after the shock the velocity distribution is much more spread out.
+Additionally pre-shock values have an almost zero probability of a velocity in the
+negative $x$ direction.
+After the shock the is a small amount of particles that have a negative velocity.
+
 
 
 

@@ -71,7 +71,7 @@ int main(void) {
 
     dvs.write_U("ms6");
     dvs.write_F("shock", 0.355);
-    dvs.write_F("left_final", 0.1);
+    dvs.write_F("left_final", 0.105);
 
     return 0;
 }
