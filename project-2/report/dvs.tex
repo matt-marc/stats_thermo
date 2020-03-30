@@ -121,15 +121,23 @@ $\SI{404.4}{\kilo \pascal}$ and $\SI{101.1}{\kilo \pascal}$.
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{tau_1e-3}
-        \caption{$\tau = 1E-3$ }
+        \caption{$\tau = \SI{1e-3}{} $}
         \label{fig:tau_1e-3}
 \end{figure}
 \begin{figure}[H]
         \centering
-        \includegraphics[width=0.8\textwidth]{tau_1e-6}
-        \caption{$\tau = 1E-6$ }
-        \label{fig:tau_1e-6}
+        \includegraphics[width=0.8\textwidth]{tau_1e-7}
+        \caption{$\tau = \SI{1e-7}{}$ }
+        \label{fig:tau_1e-7}
 \end{figure}
+
+\noindent
+By looking at Figures \ref{fig:tau10} - \ref{fig:tau_1e-7} we can attempt to estimate the
+continuum, transition and free-molecular regimes.
+In free-molecular regimes particles have little interactions with each other, we seem to be in a
+free-molecular flow in between $\tau = 10$ to $\tau \approx 0.01$.
+After which the flow enters a transition zone until it arrives at the continuum region near
+$\tau \approx \SI{1e-7}{}$.
 
 \noindent
 In addition to the change of the fluid properties along the $x$ axis we can also
@@ -158,19 +166,19 @@ observer the most likely velocities particles are to be found at those given poi
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{left_f}
-        \caption{Left velocity distribution at $x = \SI{3.025}{\meter}, \tau = SI{1e-3}{}$ }
+        \caption{Left velocity distribution at $x = \SI{3.025}{\meter}, \tau = \SI{1e-3}{}$ }
         \label{fig:left_f}
 \end{figure}
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{right_f}
-        \caption{Right velocity distribution at $x = \SI{8.025}{\meter}, \tau = SI{1e-3}{}$ }
+        \caption{Right velocity distribution at $x = \SI{8.025}{\meter}, \tau = \SI{1e-3}{}$ }
         \label{fig:right_f}
 \end{figure}
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{center_shock}
-        \caption{Velocity distribution near center of shock-tube, $\tau = SI{1e-3}{}$}
+        \caption{Velocity distribution near center of shock-tube, $\tau = \SI{1e-3}{}$}
         \label{fig:center_shock}
 \end{figure}
 
@@ -178,8 +186,8 @@ observer the most likely velocities particles are to be found at those given poi
 \section{Shock-wave problem}
 For this problem the up-steam conditions are set to the following
 \begin{align*}
-        \rho &= \SI{1.225}{\kilogram \per \meter^3}\\
-        p &= \SI{101.325}{\kilo \pascal}
+        \rho_l &= \SI{1.225}{\kilogram \per \meter^3}\\
+        p_l &= \SI{101.325}{\kilo \pascal}
 \end{align*}
 Because we know that $\gamma = 3.0$ we can determine the speed of sound for the fluid by the following
 equation.

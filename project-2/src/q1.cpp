@@ -37,7 +37,7 @@ int main(void) {
     cout << dvs;
     cout << "Begin time marching" << endl;
 
-    dvs.time_march_to(6.0E-3, 1E-5, 1.0);
+    dvs.time_march_to(6.0E-3, 1.0E-5, 1.0);
 
     dvs.write_U("ms6");
 
