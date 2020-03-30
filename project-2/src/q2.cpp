@@ -14,7 +14,7 @@ int main(void) {
     double gamma = 3.0;
 
     //mach pre shock
-    double mach = 2.0;
+    double mach = 4.0;
 
     //calculating downstream conditions right
     //see report for eq_1 and 2
@@ -35,7 +35,7 @@ int main(void) {
 
     //sets the velocity space to be 100 cells ranging from
     // [-20000/s to 20000/s]
-    dvs.setVelocitySpace(1000, -20000, 20000);
+    dvs.setVelocitySpace(1000, -5000, 5000);
 
     //creates a density function with rho, u, p
     density_function left(rho_l, v_l, p_l, dvs.dV());
@@ -54,6 +54,7 @@ int main(void) {
 
     cout << "Begin shock time maching" << endl;
     cout << "UPSTEAM CONDITIONS" << endl;
+    cout << "MACH:       " << mach << endl;
     cout << "Rho:        " << rho_l << "kg/m^3" << endl;
     cout << "Pressure:   " << p_l << "Pa" << endl;
     cout << "Velocity:   " << v_l << "m/s" << endl;
@@ -66,9 +67,11 @@ int main(void) {
     cout << "Velocity:   " << v_r << "m/s" << endl;
     cout << endl;
 
-    dvs.time_march_to(6.0E-3, 5E-6, 1E-7);
+    dvs.time_march_to(6.0E-4, 1E-6, 1E-7);
 
     dvs.write_U("ms6");
+    dvs.write_F("shock", 0.355);
+    dvs.write_F("left_final", 0.1);
 
     return 0;
 }

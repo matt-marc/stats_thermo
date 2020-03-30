@@ -16,5 +16,5 @@ makefile in main directory will build project located in the
 src directory this will copy over q1 and q2 that can be run in the main
 directory
 
-Running q1 and q2 will generate inital conditiion .dat files and a final .dat
+Running q1 and q2 will generate inital condition.dat files and a final.dat,
 file ms6.dat that contain the properties along the x dir after 6ms

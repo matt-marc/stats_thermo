@@ -6,6 +6,7 @@
 \usepackage{mathrsfs}
 \usepackage{float}
 \usepackage{subfig}
+\usepackage{verbatim}
 \graphicspath{{./img/}}
 
 \title{
@@ -157,19 +158,19 @@ observer the most likely velocities particles are to be found at those given poi
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{left_f}
-        \caption{Left velocity distribution at $x = \SI{3.025}{\meter}, \tau = 1E-3$ }
+        \caption{Left velocity distribution at $x = \SI{3.025}{\meter}, \tau = SI{1e-3}{}$ }
         \label{fig:left_f}
 \end{figure}
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{right_f}
-        \caption{Right velocity distribution at $x = \SI{8.025}{\meter}, \tau = 1E-3$ }
+        \caption{Right velocity distribution at $x = \SI{8.025}{\meter}, \tau = SI{1e-3}{}$ }
         \label{fig:right_f}
 \end{figure}
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{center_shock}
-        \caption{Velocity distribution near center of shock-tube, $\tau = 1E-3$}
+        \caption{Velocity distribution near center of shock-tube, $\tau = SI{1e-3}{}$}
         \label{fig:center_shock}
 \end{figure}
 
@@ -203,6 +204,88 @@ equations.
 \subsection{Results}
 As this is a normal shock the domain (in the $x$ direction) does not have to be really large as we are only
 evaluating the conditions before and after the shock.
+Because of this a domain ranging from $\SI{0}{meter}$ to $\SI{0.5}{meter}$ was selected.
+
+
+For a mach number of $2$ the following upstream and downstream conditions were used to initially set the
+domain.
+\begin{center}
+\begin{verbatim}
+Begin shock time maching
+UPSTEAM CONDITIONS
+MACH:       2
+Rho:        1.225kg/m^3
+Pressure:   101325Pa
+Velocity:   996.279m/s
+
+DONWSTREAM CONDITIONS
+Rho:        1.96kg/m^3
+Pressure:   557288Pa
+Velocity:   622.674m/s
+\end{verbatim}
+\end{center}
+With $\tau = \SI{1e-7}{}$ and a final time of $tf = \SI{1e-4}{second}$ the flow properties along the shock are the following.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{mach-2-f}
+        \caption{Properties along the shock, $\tau = \SI{1e-7}{}$ }
+        \label{fig:mach-2-f}
+\end{figure}
+In addition to observing the flow properties along the shock we can also investigate the distribution
+at certain points along the shock.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{left_f-m}
+        \caption{Distribution at $x=0.105$ }
+        \label{fig:left_f-m}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{center_shock-m}
+        \caption{Distribution near shock at $x = 0.305$ }
+        \label{fig:center_shock-m}
+\end{figure}
+
+For a mach number of $4$ the following upstream and downstream conditions were used to initially set the
+domain.
+\begin{verbatim}
+Begin shock time maching
+UPSTEAM CONDITIONS
+MACH:       4
+Rho:        1.225kg/m^3
+Pressure:   101325Pa
+Velocity:   1992.56m/s
+
+DONWSTREAM CONDITIONS
+Rho:        2.30588kg/m^3
+Pressure:   2.38114e+06Pa
+Velocity:   1058.55m/s
+\end{verbatim}
+With $\tau = \SI{1e-7}{}$ and a final time of $tf = \SI{1e-4}{second}$ the flow properties along the shock are the following.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{mach-4-f}
+        \caption{Properties along the shock, $\tau = \SI{1e-7}{}$ }
+        \label{fig:mach-4-f}
+\end{figure}
+In addition to observing the flow properties along the shock we can also investigate the distribution
+at certain points along the shock.
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{left_f-m_4}
+        \caption{Distribution at $x=0.105$ }
+        \label{fig:left_f-m_4}
+\end{figure}
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\textwidth]{center_shock-m_4}
+        \caption{Distribution near shock at $x = 0.305$ }
+        \label{fig:center_shock-m_4}
+\end{figure}
+It is important to note that as we have significantly decreased $\tau$ compared to the
+problem 1 and the $\Delta x$ step in physical space we also needed to reduce
+the time step $\Delta t$ to still achieve stable time marching.
+
 
 
 \end{document}
