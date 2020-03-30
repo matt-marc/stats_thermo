@@ -66,7 +66,7 @@ vector<double> DiscreteVelocityScheme::rho() {
     return rho;
 }
 
-//computes rho of matrix U at given index 
+//computes rho of matrix U at given index
 double DiscreteVelocityScheme::rho(int index) {
     double total = 0.0;
 
@@ -102,7 +102,7 @@ vector<double> DiscreteVelocityScheme::u() {
     return u;
 }
 
-//computes u for matrix U at index 
+//computes u for matrix U at index
 double DiscreteVelocityScheme::u(int index) {
     double total = 0.0;
 
@@ -192,15 +192,14 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
         vector<vector<double>> u_n_p1;
         vector<vector<double>> u_hat;
 
+        //TODO: merge outer loops together
         for (size_t i = 0; i < x_pos.size(); ++i) {
             vector<double> u_i_hat;
             for (size_t j = 0; j < vel_space.size(); ++j) {
                 u_i_hat.push_back(U[i][j] + F_flux(i, j, dx, dt));
             }
             u_hat.push_back(u_i_hat);
-        }
 
-        for (size_t i = 0; i < x_pos.size(); ++i) {
             double m_rho = rho(u_hat[i]);
             double m_u = u(u_hat[i]);
             double m_p = p(u_hat[i]);
