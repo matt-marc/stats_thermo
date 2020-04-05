@@ -14,7 +14,7 @@ int main(void) {
     double gamma = 3.0;
 
     //mach pre shock
-    double mach = 4.0;
+    double mach = 2.0;
 
     //calculating downstream conditions right
     //see report for eq_1 and 2
@@ -30,11 +30,11 @@ int main(void) {
     double v_l = mach * sqrt(gamma * (p_l / rho_l));
     double v_r = mach_r * sqrt(gamma * (p_r / rho_r));
 
-    //creates a dvs that has 500 cells with x range [0m - 0.3m]
+    //creates a dvs that has 500 cells with x range [0m - 0.5m]
     DiscreteVelocityScheme dvs(50, 0, 0.5);
 
     //sets the velocity space to be 100 cells ranging from
-    // [-20000/s to 20000/s]
+    // [-5000/s to 5000/s]
     dvs.setVelocitySpace(1000, -5000, 5000);
 
     //creates a density function with rho, u, p
@@ -44,7 +44,7 @@ int main(void) {
     density_function right(rho_r, v_r, p_r, dvs.dV());
 
     //sets the density based on the function to the range
-    // of [0 - 5m] and [5m - 10m]
+    // of [0 - 0.3m] and [0.3m - 0.5m]
     dvs.setDensityInRange(0, 0.3, left);
     dvs.setDensityInRange(0.3, 0.5, right);
 
@@ -67,7 +67,8 @@ int main(void) {
     cout << "Velocity:   " << v_r << "m/s" << endl;
     cout << endl;
 
-    dvs.time_march_to(6.0E-4, 1E-6, 1E-7);
+    //Time march to 1E-4s with dt and tau of 1E-7
+    dvs.time_march_to(1.0E-4, 1E-6, 1E-7);
 
     dvs.write_U("ms6");
     dvs.write_F("shock", 0.355);
