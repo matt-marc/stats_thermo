@@ -57,7 +57,7 @@ end of the distribution is cut off for both the left and right ends of the shock
 \end{figure}
 
 \noindent
-Selecting a velocity range of $\pm \SI{1000}{\meter \per \second}$, as shown in \ref{fig:init_1000} we obtain
+Selecting a velocity range of $\pm \SI{1000}{\meter \per \second}$, as shown in Figure \ref{fig:init_1000} we obtain
 a velocity space that covers the full distribution of the particle space.
 
 
@@ -145,11 +145,6 @@ evaluate the velocity distribution at certain points along the shock tube.
 Looking at the probability distribution of the particles at given points lets us
 observer the most likely velocities particles are to be found at those given points.
 
-\noindent
-It is important to note that to properly capture the flow in the continuum regime the bounds of velocity
-space had to be modified to $\pm \SI{5000}{\meter \per \second}$
-for $\tau = \SI{1e-7}{}$.
-
 \begin{figure}[H]
         \centering
         \includegraphics[width=0.8\textwidth]{left_f-t}
@@ -214,8 +209,10 @@ equations.
 \[
         M_r^2= \frac{(\gamma -1)M^2 +2}{2\gamma M^2-(\gamma-1)}
 \]
+Where $p_r, \rho_r$ and $M_r$ are the right initial conditions and
+$p_l, \rho_l$ and $M$ are the left initial conditions.
 \subsection{Results}
-As this is a normal shock the domain (in the $x$ direction) does not have to be really large as we are only
+As this is a normal shock the domain, (in the $x$ direction) does not have to be really large as we are only
 evaluating the conditions before and after the shock.
 Because of this a domain ranging from $\SI{0}{\meter}$ to $\SI{0.5}{\meter}$ was selected.
 
