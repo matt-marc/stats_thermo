@@ -192,7 +192,6 @@ void DiscreteVelocityScheme::time_march_to(double tf, double dt, double tau) {
         vector<vector<double>> u_n_p1;
         vector<vector<double>> u_hat;
 
-        //TODO: merge outer loops together
         for (size_t i = 0; i < x_pos.size(); ++i) {
             vector<double> u_i_hat;
             for (size_t j = 0; j < vel_space.size(); ++j) {

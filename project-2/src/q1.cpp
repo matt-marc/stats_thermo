@@ -37,6 +37,7 @@ int main(void) {
     cout << dvs;
     cout << "Begin time marching" << endl;
 
+    //begin time marching to tf with dt and tau
     dvs.time_march_to(6.0E-3, 1.0E-5, 10.0);
 
     dvs.write_U("ms6");
